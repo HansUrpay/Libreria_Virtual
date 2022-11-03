@@ -19,8 +19,6 @@
 
 #INICIO DE TAREA
 
-import pandas as pd
-from csv import DictWriter
 from os import system
 system("cls")
 
@@ -38,62 +36,10 @@ class libro():
     def menu(self):
         print( "Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.\nOpción 2: Listar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. Se deben sugerir las opciones y listar los resultados.\nOpción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.\nOpción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).\nOpción 10: Guardar libros en archivo de disco duro (.txt o csv).")
 
-    def leer_archivo(self):
-        datos = pd.read_csv("libros.csv")
-        #print(datos.sort_values(by="id"))
-        print(datos.iloc[0:3])
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-hola buenas tardes
-=======
 "hola como van"
 print("hola mundo")
 
-def leer_archivo(self):
-    datos = pd.read_csv("libros.csv")
-    #print(datos.sort_values(by="id"))
-    print(datos.iloc[0:3])
-<<<<<<< HEAD
-
-  
-=======
->>>>>>> f1bbc605c9f6b00ee87a9f33fd27157e2e9d7a65
->>>>>>> b6b4766875e1b9dbacb23074c5a54b95388f5fe1
-=======
-    def leer_archivo(self):
-        datos = pd.read_csv("libros.csv")
-        #print(datos.sort_values(by="id"))
-        print(datos.iloc[0:3])
->>>>>>> c77ee8b8f13cbd5d557a4d7dc65ebccf0e3e7f8f
-=======
->>>>>>> 142924b132ad8682d004e91924bf918c1ed6c64b
-=======
-
-    def add(self):
-        insert = True
-        while insert:
-            Id = input("Ingrese ID: ")
-            nombre = input("Ingresar nombre: ")
-            genero = input("Ingresar genero: ")
-            isbn = input("Ingresar ISBN: ") 
-            editorial = input("Ingrese Editorial: ")
-            autor = input("Ingrese autor: ")
-            lib_atributos = { "ID":Id ,"Titulo":nombre,"Genero":genero,"ISBN":isbn,"Editorial":editorial, "Autor":autor}
-            self.dicc_libros[nombre] = lib_atributos # Agrega el elemento al diccionario
-            print()
-            if (input("Registrar otro libro? S/N: ")).lower() == "n":
-                insert = False
-
-    def mostrar(self):
-        print()
-        for nombre, valor in self.dicc_libros.items(): # .items() funciona en Python 3.x
-            print("----")
-            Id = valor["ID"]
-            genero = valor["Genero"]
-            isbn = valor["ISBN"]
-            editorial = valor["Editorial"]
-            autor = valor["Autor"]
-            print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
->>>>>>> 8eb096e7ec2fac6f1fa82207344cd6057e4d8dae
+# def leer_archivo(self):
+#     datos = pd.read_csv("libros.csv")
+#     #print(datos.sort_values(by="id"))
+#     print(datos.iloc[0:3])
