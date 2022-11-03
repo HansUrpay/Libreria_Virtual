@@ -17,4 +17,23 @@
 # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
 # Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
 
-# INICIO DE TAREA
+#INICIO DE TAREA
+
+from os import system
+system("cls")
+
+class libro():
+
+    def __init__(self,id, titulo, genero, ISBN, editorial,autor):
+        self.id = id
+        self.titulo = titulo
+        self.genero = genero
+        self.ISBN = ISBN
+        self.editorial = editorial
+        self.autor = autor
+        self.dicc_libros = {} #diccionario vacio
+
+    def menu(self):
+        print( "Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.\nOpción 2: Listar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. Se deben sugerir las opciones y listar los resultados.\nOpción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.\nOpción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).\nOpción 10: Guardar libros en archivo de disco duro (.txt o csv).")
+
+hola
