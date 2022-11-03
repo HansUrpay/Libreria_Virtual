@@ -97,3 +97,5 @@ def leer_archivo(self):
             autor = valor["Autor"]
             print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
 >>>>>>> 8eb096e7ec2fac6f1fa82207344cd6057e4d8dae
+
+print("hola buenas tardes")
