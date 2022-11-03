@@ -46,6 +46,7 @@ class libro():
     def listar(self):
         datos = pd.read_csv("libros.csv")
         print(datos.iloc[:,[1,2,3,4,5]])
+
             
     def add(self):
         insert = True
@@ -61,6 +62,7 @@ class libro():
             print()
             if (input("Registrar otro libro? S/N: ")).lower() == "n":
                 insert = False
+            
 
     def mostrar(self):
         print()
