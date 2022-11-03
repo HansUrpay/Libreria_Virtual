@@ -43,6 +43,10 @@ class libro():
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
         
+    def listar(self):
+        datos = pd.read_csv("libros.csv")
+        print(datos.iloc[:,[1,2,3,4,5]])
+            
     def add(self):
         insert = True
         while insert:
@@ -68,8 +72,5 @@ class libro():
             editorial = valor["Editorial"]
             autor = valor["Autor"]
             print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
-
-obj = libro('id', 'titulo', 'genero', 'ISBN', 'editorial', 'autor')
-obj.leer_archivo()
-
-    
+            
+            
