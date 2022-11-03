@@ -23,7 +23,14 @@ from os import system
 system("cls")
 
 class libro():
-    def __init__(self):
+
+    def __init__(self,id, titulo, genero, ISBN, editorial,autor):
+        self.id = id
+        self.titulo = titulo
+        self.genero = genero
+        self.ISBN = ISBN
+        self.editorial = editorial
+        self.autor = autor
         self.dicc_libros = {} #diccionario vacio
 
     def menu(self):
