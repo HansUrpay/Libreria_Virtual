@@ -41,6 +41,7 @@ class libro():
         datos = pd.read_csv("libros.csv")
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 hola buenas tardes
@@ -64,3 +65,5 @@ def leer_archivo(self):
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
 >>>>>>> c77ee8b8f13cbd5d557a4d7dc65ebccf0e3e7f8f
+=======
+>>>>>>> 142924b132ad8682d004e91924bf918c1ed6c64b
