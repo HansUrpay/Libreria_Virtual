@@ -68,4 +68,8 @@ class libro():
             editorial = valor["Editorial"]
             autor = valor["Autor"]
             print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
+
+obj = libro('id', 'titulo', 'genero', 'ISBN', 'editorial', 'autor')
+obj.leer_archivo()
+
     
