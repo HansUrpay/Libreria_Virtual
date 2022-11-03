@@ -19,6 +19,8 @@
 
 #INICIO DE TAREA
 
+import pandas as pd
+from csv import DictWriter
 from os import system
 system("cls")
 
