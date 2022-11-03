@@ -42,6 +42,34 @@ class libro():
         datos = pd.read_csv("libros.csv")
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+hola buenas tardes
+=======
+"hola como van"
+print("hola mundo")
+
+def leer_archivo(self):
+    datos = pd.read_csv("libros.csv")
+    #print(datos.sort_values(by="id"))
+    print(datos.iloc[0:3])
+<<<<<<< HEAD
+
+  
+=======
+>>>>>>> f1bbc605c9f6b00ee87a9f33fd27157e2e9d7a65
+>>>>>>> b6b4766875e1b9dbacb23074c5a54b95388f5fe1
+=======
+    def leer_archivo(self):
+        datos = pd.read_csv("libros.csv")
+        #print(datos.sort_values(by="id"))
+        print(datos.iloc[0:3])
+>>>>>>> c77ee8b8f13cbd5d557a4d7dc65ebccf0e3e7f8f
+=======
+>>>>>>> 142924b132ad8682d004e91924bf918c1ed6c64b
+=======
 
     def add(self):
         insert = True
@@ -68,3 +96,4 @@ class libro():
             editorial = valor["Editorial"]
             autor = valor["Autor"]
             print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
+>>>>>>> 8eb096e7ec2fac6f1fa82207344cd6057e4d8dae
