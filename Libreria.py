@@ -43,3 +43,28 @@ class libro():
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
 
+    def add(self):
+        insert = True
+        while insert:
+            Id = input("Ingrese ID: ")
+            nombre = input("Ingresar nombre: ")
+            genero = input("Ingresar genero: ")
+            isbn = input("Ingresar ISBN: ") 
+            editorial = input("Ingrese Editorial: ")
+            autor = input("Ingrese autor: ")
+            lib_atributos = { "ID":Id ,"Titulo":nombre,"Genero":genero,"ISBN":isbn,"Editorial":editorial, "Autor":autor}
+            self.dicc_libros[nombre] = lib_atributos # Agrega el elemento al diccionario
+            print()
+            if (input("Registrar otro libro? S/N: ")).lower() == "n":
+                insert = False
+
+    def mostrar(self):
+        print()
+        for nombre, valor in self.dicc_libros.items(): # .items() funciona en Python 3.x
+            print("----")
+            Id = valor["ID"]
+            genero = valor["Genero"]
+            isbn = valor["ISBN"]
+            editorial = valor["Editorial"]
+            autor = valor["Autor"]
+            print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
