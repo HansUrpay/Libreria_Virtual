@@ -42,3 +42,5 @@ class libro():
         datos = pd.read_csv("libros.csv")
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
+
+hola como estan
