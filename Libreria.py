@@ -18,6 +18,7 @@
 # Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
 
 #INICIO DE TAREA
+
 import pandas as pd
 from csv import DictWriter
 from os import system
@@ -41,6 +42,7 @@ class libro():
         datos = pd.read_csv("libros.csv")
         #print(datos.sort_values(by="id"))
         print(datos.iloc[0:3])
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -67,3 +69,31 @@ def leer_archivo(self):
 >>>>>>> c77ee8b8f13cbd5d557a4d7dc65ebccf0e3e7f8f
 =======
 >>>>>>> 142924b132ad8682d004e91924bf918c1ed6c64b
+=======
+
+    def add(self):
+        insert = True
+        while insert:
+            Id = input("Ingrese ID: ")
+            nombre = input("Ingresar nombre: ")
+            genero = input("Ingresar genero: ")
+            isbn = input("Ingresar ISBN: ") 
+            editorial = input("Ingrese Editorial: ")
+            autor = input("Ingrese autor: ")
+            lib_atributos = { "ID":Id ,"Titulo":nombre,"Genero":genero,"ISBN":isbn,"Editorial":editorial, "Autor":autor}
+            self.dicc_libros[nombre] = lib_atributos # Agrega el elemento al diccionario
+            print()
+            if (input("Registrar otro libro? S/N: ")).lower() == "n":
+                insert = False
+
+    def mostrar(self):
+        print()
+        for nombre, valor in self.dicc_libros.items(): # .items() funciona en Python 3.x
+            print("----")
+            Id = valor["ID"]
+            genero = valor["Genero"]
+            isbn = valor["ISBN"]
+            editorial = valor["Editorial"]
+            autor = valor["Autor"]
+            print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
+>>>>>>> 8eb096e7ec2fac6f1fa82207344cd6057e4d8dae
