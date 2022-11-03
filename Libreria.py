@@ -36,10 +36,33 @@ class libro():
     def menu(self):
         print( "Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.\nOpción 2: Listar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. Se deben sugerir las opciones y listar los resultados.\nOpción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.\nOpción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).\nOpción 10: Guardar libros en archivo de disco duro (.txt o csv).")
 
-"hola como van"
-print("hola mundo")
+    def leer_archivo(self):
+        datos = pd.read_csv("libros.csv")
+        #print(datos.sort_values(by="id"))
+        print(datos.iloc[0:3])
+        
+    def add(self):
+        insert = True
+        while insert:
+            Id = input("Ingrese ID: ")
+            nombre = input("Ingresar nombre: ")
+            genero = input("Ingresar genero: ")
+            isbn = input("Ingresar ISBN: ") 
+            editorial = input("Ingrese Editorial: ")
+            autor = input("Ingrese autor: ")
+            lib_atributos = { "ID":Id ,"Titulo":nombre,"Genero":genero,"ISBN":isbn,"Editorial":editorial, "Autor":autor}
+            self.dicc_libros[nombre] = lib_atributos # Agrega el elemento al diccionario
+            print()
+            if (input("Registrar otro libro? S/N: ")).lower() == "n":
+                insert = False
 
-# def leer_archivo(self):
-#     datos = pd.read_csv("libros.csv")
-#     #print(datos.sort_values(by="id"))
-#     print(datos.iloc[0:3])
+    def mostrar(self):
+        print()
+        for nombre, valor in self.dicc_libros.items(): # .items() funciona en Python 3.x
+            print("----")
+            Id = valor["ID"]
+            genero = valor["Genero"]
+            isbn = valor["ISBN"]
+            editorial = valor["Editorial"]
+            autor = valor["Autor"]
+            print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
