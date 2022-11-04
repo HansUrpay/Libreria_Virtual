@@ -38,7 +38,7 @@ def libreria():
   def listar():
       datos = pd.read_csv("libros.csv")
       print(datos.iloc[:,[1,2,3,4,5]])
-  
+
 
   # validacion de opciones para el usuario
   print(menu())
@@ -102,3 +102,4 @@ def mostrar(self):
       editorial = valor["Editorial"]
       autor = valor["Autor"]
       print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
+      
