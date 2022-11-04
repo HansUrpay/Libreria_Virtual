@@ -49,6 +49,13 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       # Se imprime todos los libros del archivo
       print(datos.iloc[:,[1,2,3,4,5]])
+      
+  def eliminar():
+      datos = pd.read_csv("libros.csv")
+      print(datos)       
+      elim = int(input("\nIngrese id del libro que  desea eliminar: "))
+      datos.drop(inplace=True, index = (elim-1))
+      print(datos)
 
   def buscar_isbn_titulo():
       #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
@@ -147,6 +154,18 @@ def libreria():
       else:
         print("Gracias por usar la libreria virtual")
         break
+    
+    if  opcion == 4:
+      eliminar()
+      opcion2 = input("Deseas volver al menu? S/N: " ).upper()
+      if opcion2 == "S" or opcion2 == "SI":
+        system("cls")
+        print(menu())
+        opcion = int(input("Ingresa una opcion: "))
+      else:
+        print("Gracias por usar la libreria virtual")
+        break
+    
     if opcion == 5:
        buscar_isbn_titulo()
        print("Volveras al menú principal")
