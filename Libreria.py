@@ -21,7 +21,6 @@
 #INICIO DE TAREA
 
 import pandas as pd
-import pandas as ForSortingCSV
 from csv import DictWriter
 from os import system
 system("cls")         
@@ -38,16 +37,22 @@ def libreria():
   
   # Agregar las funciones para cada opcion
   def leer_archivo():
+    # opcion 1: leer archivo de disco duro que cargue 3 libros
+    # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
-      # print(datos.sort_values(by="id"))
+      # Se imprime 3 libros del archivo
       print(datos.iloc[0:3])
 
   def listar():
+      # opción 2: Listar libros.
+      # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
+      # Se imprime todos los libros del archivo
       print(datos.iloc[:,[1,2,3,4,5]])
 
   def buscar_isbn_titulo():
       #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
+      # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
       while True:
         print("\nElija una opción\n")
@@ -56,23 +61,26 @@ def libreria():
         print("3. Salir\n")  
         opcion = input("Ingresar opción: ")    
         if (opcion == "1"):
+          # Se imprime columna de ISBN
           print(datos.iloc[:,[3]])  
         elif (opcion == "2"):
+          # Se imprime columna de titulos
           print(datos.iloc[:,[1]])
         else:
           break       
 
-  def orderar_por_titulo():
+  def orden_por_titulo():
+    # Opción 6: Ordenar libros por título.
     # Se lee el archivo csv de libros
-    libros_ordenados = ForSortingCSV.read_csv("libros.csv")
+    libros_ordenados = pd.read_csv("libros.csv")
     # Se ordenan los libros por titulo con sort_values
     libros_ordenados.sort_values(["titulo"], axis=0, ascending=[True], inplace=True)
     # Se imprime columna de titulos ordenados de libros 
     print(libros_ordenados.iloc[:,[1]])
   
   def buscar_autor_editorial_genero():
-  #Opción 7: Buscar libro por autor, editorial o genero
-  # Se lee el archivo de libros
+    #Opción 7: Buscar libro por autor, editorial o genero
+    # Se lee el archivo de libros
     libros = pd.read_csv("libros.csv")
     while True:
       print("\nElija una opción\n")
@@ -146,7 +154,7 @@ def libreria():
        print(menu())
        opcion = int(input("Ingresa una opcion: "))
     if opcion == 6:
-      orderar_por_titulo()
+      orden_por_titulo()
       opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
       if opcion2 == "S" or opcion2 == "SI":
         system("cls")
