@@ -31,14 +31,58 @@ def libreria():
   
   # Agregar todas las funciones de cada opcion
   def leer_archivo():
-        datos = pd.read_csv("libros.csv")
-        #print(datos.sort_values(by="id"))
-        print(datos.iloc[0:3])
+      datos = pd.read_csv("libros.csv")
+      #print(datos.sort_values(by="id"))
+      print(datos.iloc[0:3])
 
   def listar():
       datos = pd.read_csv("libros.csv")
       print(datos.iloc[:,[1,2,3,4,5]])
 
+
+      
+  def buscar_isbn_titulo(self):
+      #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
+      opcion = "0"
+      while not(opcion == "3"):
+        print("\nElija una opción\n")
+        print("1. Buscar por ISBN")
+        print("2. Buscar por Título")
+        print("3. Salir\n")
+            
+        opcion = input("Ingresar opción: ")
+                    
+        if (opcion == "1"):
+          datos = pd.read_csv("libros.csv")
+          print(datos.iloc[:,[3]])
+                        
+        elif (opcion == "2"):
+          datos = pd.read_csv("libros.csv")
+          print(datos.iloc[:,[1]])
+            
+        elif (opcion == "3"):
+          break
+        
+        else:
+          print("Ingrese una opción valida")
+
+  def guardar(self):    
+      insert = True
+      while insert:
+        self.__id = input("Ingrese ID: ")
+        self.__titulo = input("Ingresar el titulo del libro: ")
+        self.__genero = input("Ingrese genero del libro")
+        self.__isbn = input("Ingrese ISBN: ")
+        self.__editorial = input("Ingrese editorial: ")
+        self.__autores = input("Ingrese autores: ")          
+        lib_datos = {"id":self.__id, "titulo":self.__titulo, "genero":self.__genero, "isbn":self.__isbn, "editorial":self.__editorial, "autores":self.__autores}
+        with open ('libros.csv','a',newline='') as nueva_linea:
+          escribir = DictWriter(nueva_linea, fieldnames=self.libros)
+          escribir.writerow(lib_datos)
+          nueva_linea.close()
+        print()
+        if (input("Registrar otro libro? S/N: ")).lower() == "n":
+          insert = False
 
   # validacion de opciones para el usuario
   print(menu())
@@ -102,4 +146,3 @@ def mostrar(self):
       editorial = valor["Editorial"]
       autor = valor["Autor"]
       print("ID: {} | Nombre: {} | Genero: {} | ISBN: {} | Autor: {} | Editorial: {} ".format(Id,nombre,genero,isbn,autor, editorial))
-      
