@@ -113,11 +113,12 @@ def libreria():
         break
     
     if opcion == 5:
-       buscar_isbn_titulo()
-       
-       print("Volveras al menú principal")
-       print(menu())
-       opcion = int(input("Ingresa una opcion: "))
+      buscar_isbn_titulo()
+      
+      print("Volveras al menú principal")
+      system("cls") 
+      print(menu())
+      opcion = int(input("Ingresa una opcion: "))
         
     if opcion == 10:
        guardar()
