@@ -101,7 +101,7 @@ while True:
       opcion = int(input("Ingresa una opcion: "))
     else:
       print("Gracias por usar la libreria virtual")
-    break
+      break
   if opcion == 2:
     forma()
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
