@@ -44,6 +44,8 @@ def libreria():
   def listar():
       datos = pd.read_csv("libros.csv")
       print(datos.iloc[:,[1,2,3,4,5]])
+
+
       
   def buscar_isbn_titulo():
       #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
