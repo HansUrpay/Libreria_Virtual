@@ -2,10 +2,17 @@ import requests
 import json
 from os import system
 system("cls")
+from itertools import zip_longest
 
 pokemon = "https://pokeapi.co/api/v2/"
-#pokemon = "https://pokeapi.co/api/v2/pokemon/bulbasaur"
-# # pokemon = 'https://pokeapi.co/api/v2/pokemon/{pokemon_name}'
+
+def grouper(lista, n, fillvalue=""):
+    args = [iter(lista)] * n
+    return zip_longest(*args, fillvalue=fillvalue)
+
+def print_en_columnas(lista, numfilas, ancho=15):
+  for fila in zip(*grouper(lista, numfilas)):
+    print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
   print("\nOpción 1: Listar pokemons por generación. Se ingresa alguna generación (1, 2, 3, ..) y se listan todos los pokemon respectivos.\nOpción 2: Listar pokemons por forma. Se ingresa alguna forma (deben sugerir valores) y se listan todos los pokemons respectivos.\nOpción 3: Listar pokemons por habilidad. Se deben sugerir opciones a ingresar para interactuar.\nOpción 4: Listar pokemons por habitat. Se deben sugerir opciones a ingresar para interactuar.\nOpción 5: Listar pokemons por tipo. Se deben sugerir opciones a ingresar para interactuar.")
@@ -120,4 +127,5 @@ while True:
     else:
       print("Gracias por usar la libreria virtual")
       break
+
 
