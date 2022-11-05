@@ -19,9 +19,9 @@
 # Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
 
 #INICIO DE TAREA
-
-import pandas as pd
+import csv
 from csv import DictWriter
+import pandas as pd
 from os import system
 system("cls")         
 
@@ -100,26 +100,44 @@ def libreria():
   
   #Opción 7: Buscar libro por autor, editorial o genero
   def buscar_autor_editorial_genero():
-      # Se lee el archivo de libros
-      libros = pd.read_csv("libros.csv")
+    # Se lee el archivo de libros
       while True:
-        print("\nElija una opción\n")
+        print("\nElija una opcion del 1 al 4:\n")
         print("1. Buscar por autor")
         print("2. Buscar por editorial")
         print("3. Buscar por genero")
         print("4. Volver al menu principal\n")  
-        opcion = input("Ingresar opción: ")    
-        if opcion == "1":
-          # Se imprime columna de autores
-          print(libros["AUTORES"])
-        elif opcion == "2":
-          # Se imprime columna de editorial
-          print(libros["EDITORIAL"])
-        elif opcion == "3":
-          # Se imprime columna de genero
-          print(libros["GENERO"])
-        else:
-          selector()
+        opcion = input("Ingresar opción: ") 
+        with open("libros.csv", "r",encoding="UTF-8") as file:
+          libros = csv.reader(file)
+          
+          if opcion == "1":
+            system("cls")
+            busqueda = input("Ingresar el autor a buscar: ")
+            print("Busquedas encontradas: \n")
+            for fila in libros:
+              if busqueda.upper() in fila[5] or busqueda.lower() in fila[5] or busqueda.capitalize() in fila[5]:
+                print(" ".join(fila))
+          
+          elif opcion == "2":
+            system("cls")
+            busqueda = input("Ingresar la editorial a buscar: ")
+            print("Busquedas encontradas: \n")
+            for fila in libros:
+              if busqueda.upper() in fila[4] or busqueda.lower() in fila[4] or busqueda.capitalize() in fila[4]:
+                print(" ".join(fila))
+          elif opcion == "3":
+            system("cls")
+            busqueda = input("Ingresar el genero a buscar: ")
+            print("Busquedas encontradas: \n")
+            for fila in libros:
+              if busqueda.upper() in fila[2] or busqueda.lower() in fila[2] or busqueda.capitalize() in fila[2]:
+                print(" ".join(fila))
+          elif opcion == "4":
+            system("cls")
+            selector()
+          else:
+            buscar_autor_editorial_genero()
           
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
   def buscar_autores():
@@ -130,7 +148,7 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       datos.set_index("TITULO", inplace=True)
       #Imprime solo datos de libros con el número de autores escogido
-      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL"]]) 
+      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]]) 
   
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
