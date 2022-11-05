@@ -19,17 +19,17 @@ def menu():
 
 def generacion():
 
-  generacion = input("ingrese que generacion busca (pista son solo 8 generaciones): ")
+  generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
   #cabezera = resp.headers
   #print(cabezera)
-  print("************************************")
+  #print("************************************")
   dato_generacion = resp_generacion.json()
   #print("************************************")
   #print(dato)
 
   especies = dato_generacion["pokemon_species"]
-  print("Estos son los pokemones de la generacion:",generacion,"\n")
+  print("\nEstos son los pokemones de la generacion:",generacion,"\n")
   lista_generacion = []
   for i in range(len(especies)):
       nombres = especies[i]["name"]
@@ -76,30 +76,33 @@ def habilidades():
   #formas = input("que tipo de forma buscas: ")
   resp_habilidades = requests.get(pokemon+"ability/")
 
-  print("************************************")
+  #print("************************************")
   dato_habilidades = resp_habilidades.json()
-  print("Estas son los tipos de habilidades que puedes elegir")
+  print("\nEstas son los tipos de habilidades que puedes elegir\n")
   #print(dato)
 
   habilidad = dato_habilidades["results"]
+  lista_habilidad = []
   for i in range(len(habilidad)):
       nombres_habilidad = habilidad[i]["name"]
+      lista_habilidad.append(str(i+1)+"-"+nombres_habilidad)
       i = i + 1
       #print(len(especies))
-      print(nombres_habilidad, end="--")
+  print_en_columnas(lista_habilidad,4,ancho=20)
 
   habilidad_final = input("\nCual es la habilidad que desea buscar para los pokemons: ")
   resp_habilidad_final= requests.get(pokemon +"ability/"+habilidad_final)
   dato_habilidades_final = resp_habilidad_final.json()
 
   habilidades_final = dato_habilidades_final["pokemon"]
-  print("Estos son los pokemones de la habilidad:",habilidad_final)
-
+  print("\nEstos son los pokemones de la habilidad:",habilidad_final+"\n")
+  lista_habilidad_final = []
   for i in range(len(habilidades_final)):
       nombres_habilidades_final = habilidades_final[i]["pokemon"]['name']
+      lista_habilidad_final.append(str(i+1)+"-"+nombres_habilidades_final)
       i = i + 1
       #print(len(especies))
-      print(nombres_habilidades_final, end="--")
+  print_en_columnas(lista_habilidad_final,10,ancho=30)
 
 
 menu()
