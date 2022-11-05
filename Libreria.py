@@ -109,6 +109,7 @@ def libreria():
           opcion = input("Ingresar opción: ") 
           with open("libros.csv", "r",encoding="UTF-8") as file:
             libros = csv.reader(file)
+            
             if opcion == "1":
               system("cls")
               busqueda = input("Ingresar el autor a buscar: ")
@@ -116,6 +117,7 @@ def libreria():
               for fila in libros:
                 if busqueda.upper() in fila[5] or busqueda.lower() in fila[5] or busqueda.capitalize() in fila[5]:
                   print(" ".join(fila))
+           
             elif opcion == "2":
               system("cls")
               busqueda = input("Ingresar la editorial a buscar: ")
