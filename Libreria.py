@@ -40,6 +40,7 @@ def libreria():
   # opcion 1: leer archivo de disco duro (.txt o csv) que cargue 3 libros
   def leer_archivo():
       # Se lee el archivo de libros
+      print("Leyendo archivo de libros ...\n")
       datos = pd.read_csv("libros.csv")
       # Se imprime 3 libros del archivo
       print(datos.iloc[0:3])
@@ -47,12 +48,14 @@ def libreria():
   # opción 2: Listar libros.
   def listar():
       # Se lee el archivo de libros
+      print("Mostrando libros ...\n")
       datos = pd.read_csv("libros.csv")
       # Se imprime todos los libros del archivo
       print(datos.iloc[:,[1,2,3,4,5]])
       
   # Opción 4: Eliminar libro.
   def eliminar():
+      print("Libros disponibles:\n")
       datos = pd.read_csv("libros.csv")
       print(datos)       
       elim = int(input("\nIngrese id del libro que  desea eliminar: "))
@@ -84,6 +87,7 @@ def libreria():
       libros_ordenados = pd.read_csv("libros.csv")
       # Se ordenan los libros por titulo con sort_values
       libros_ordenados.sort_values(["titulo"], axis=0, ascending=[True], inplace=True)
+      print("Libros ordenados alfabéticamente por titulo:\n")
       # Se imprime columna de titulos ordenados de libros 
       print(libros_ordenados.iloc[:,[1]])
   

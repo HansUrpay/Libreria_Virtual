@@ -1,4 +1,4 @@
-id,titulo,genero,isbn,editorial,autores
+ID,Titulo,Genero,ISBN,Editorial,Autores
 1,La ciudad y los perros,"Novela, Ficción",9.78844E+12,Planeta,Mario Vargas Llosa
 2,Breve historia del tiempo,Divulgación cientifica,9.78059E+12,Critica,Stephen Hawking
 3,Fisica 1,Educativo,9.78997E+12,Moshera,"Humberto Leyva Naveros,  Tania Leyva Rivera"
