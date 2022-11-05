@@ -29,12 +29,14 @@ def generacion():
   #print(dato)
 
   especies = dato_generacion["pokemon_species"]
-  print("Estos son los pokemones de la generacion:",generacion)
+  print("Estos son los pokemones de la generacion:",generacion,"\n")
+  lista_generacion = []
   for i in range(len(especies)):
       nombres = especies[i]["name"]
+      lista_generacion.append(str(i+1)+"-"+nombres)
       i = i + 1
       #print(len(especies))
-      print(nombres, end="--")
+  print_en_columnas(lista_generacion,25,ancho=20)
 
 def forma():
 
@@ -98,34 +100,34 @@ def habilidades():
 
 
 menu()
-opcion = int(input("Ingresa una opcion: "))
+opcion = int(input("\nIngresa una opcion: "))
 while True:
   if opcion == 1:
     generacion()
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("Gracias por usar la libreria virtual")
+      print("\nGracias por usar la libreria virtual")
       break
   if opcion == 2:
     forma()
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("Gracias por usar la libreria virtual")
+      print("\nGracias por usar la libreria virtual")
       break
   if opcion == 3:
     habilidades()
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("Gracias por usar la libreria virtual")
+      print("\nGracias por usar la libreria virtual")
       break
 
 
