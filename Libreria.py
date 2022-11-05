@@ -15,23 +15,150 @@
 # Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
 # Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
 # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
+# opcion 11: Salir del programa
 # Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
 
 #INICIO DE TAREA
 
+import pandas as pd
+from csv import DictWriter
 from os import system
-system("cls")
+system("cls")         
 
-class libro():
+def libreria():
+  def menu():
+        return( "Opción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
+  
+  # def clean(): #Definimos la función para limpiar pantalla segun el SO
+  #   if os.name == "posix":
+  #     os.system ("clear")
+  #   elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+  #     os.system ("cls")
+  
+  # Agregar las funciones para cada opcion
 
-    def __init__(self,id, titulo, genero, ISBN, editorial,autor):
-        self.id = id
-        self.titulo = titulo
-        self.genero = genero
-        self.ISBN = ISBN
-        self.editorial = editorial
-        self.autor = autor
-        self.dicc_libros = {} #diccionario vacio
+  # opcion 1: leer archivo de disco duro (.txt o csv) que cargue 3 libros
+  def leer_archivo():
+      # Se lee el archivo de libros
+      print("Leyendo archivo de libros ...\n")
+      datos = pd.read_csv("libros.csv")
+      # Se imprime 3 libros del archivo
+      print(datos.iloc[0:3])
 
-    def menu(self):
-        print( "Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.\nOpción 2: Listar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. Se deben sugerir las opciones y listar los resultados.\nOpción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.\nOpción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).\nOpción 10: Guardar libros en archivo de disco duro (.txt o csv).")
+  # opción 2: Listar libros.
+  def listar():
+      # Se lee el archivo de libros
+      print("Mostrando libros ...\n")
+      datos = pd.read_csv("libros.csv")
+      # Se imprime todos los libros del archivo
+      print(datos.iloc[:,[1,2,3,4,5]])
+      
+  # Opción 4: Eliminar libro.
+  def eliminar():
+      print("Libros disponibles:\n")
+      datos = pd.read_csv("libros.csv")
+      print(datos)       
+      elim = int(input("\nIngrese id del libro que  desea eliminar: "))
+      datos.drop(inplace=True, index = (elim-1))
+      print(datos)
+
+  #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
+  def buscar_isbn_titulo():
+      # Se lee el archivo de libros
+      datos = pd.read_csv("libros.csv")
+      while True:
+        print("\nElija una opción\n")
+        print("1. Buscar por ISBN")
+        print("2. Buscar por Título")
+        print("3. Salir\n")  
+        opcion = input("Ingresar opción: ")    
+        if (opcion == "1"):
+          # Se imprime columna de ISBN
+          print(datos.iloc[:,[3]])  
+        elif (opcion == "2"):
+          # Se imprime columna de titulos
+          print(datos.iloc[:,[1]])
+        else:
+          break       
+
+  # Opción 6: Ordenar libros por título.
+  def orden_por_titulo():
+      # Se lee el archivo csv de libros
+      libros_ordenados = pd.read_csv("libros.csv")
+      # Se ordenan los libros por titulo con sort_values
+      libros_ordenados.sort_values(["titulo"], axis=0, ascending=[True], inplace=True)
+      print("Libros ordenados alfabéticamente por titulo:\n")
+      # Se imprime columna de titulos ordenados de libros 
+      print(libros_ordenados.iloc[:,[1]])
+  
+  #Opción 7: Buscar libro por autor, editorial o genero
+  def buscar_autor_editorial_genero():
+      # Se lee el archivo de libros
+      libros = pd.read_csv("libros.csv")
+      while True:
+        print("\nElija una opción\n")
+        print("1. Buscar por autor")
+        print("2. Buscar por editorial")
+        print("3. Buscar por genero")
+        print("4. Volver al menu principal\n")  
+        opcion = input("Ingresar opción: ")    
+        if opcion == "1":
+          # Se imprime columna de autores
+          print(libros.iloc[:,[5]])
+        elif opcion == "2":
+          # Se imprime columna de editorial
+          print(libros.iloc[:,[4]])
+        elif opcion == "3":
+          # Se imprime columna de genero
+          print(libros.iloc[:,[2]])
+        else:
+          break 
+
+  # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
+  def guardar():
+      class libro():
+          libros = ["id","titulo","genero","isbn","editorial","autores"]
+          def __init__(self):
+            self.id = input("Ingrese ID: ")
+            self.titulo = input("Ingresar el titulo del libro: ")
+            self.genero = input("Ingrese genero del libro: ")
+            self.isbn = input("Ingrese ISBN: ")
+            self.editorial = input("Ingrese editorial: ")
+            self.autores = input("Ingrese autores: ")  
+      insert = True
+      while insert:
+        libro1 = libro()
+        lib_datos = {"id":libro1.id, "titulo":libro1.titulo, "genero":libro1.genero, "isbn":libro1.isbn, "editorial":libro1.editorial, "autores":libro1.autores}
+        with open ('libros.csv','a',newline='') as nueva_linea:
+          escribir = DictWriter(nueva_linea, fieldnames=libro1.libros)
+          escribir.writerow(lib_datos)
+          nueva_linea.close()
+        if (input("\nRegistrar otro libro? S/N: ")).lower() == "n":
+          insert = False
+            
+  # Menú de opciones para el usuario
+  print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
+  print(menu())
+  opcion = input("Ingresa una opcion: ")
+  while True:
+    try:
+      opcion = int(opcion)
+    except:
+      opcion = input("Ingresa una opcion válida: ")
+    else:
+      lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero]
+      system("cls")
+      lista_menu[opcion - 1]() 
+      opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
+      while True:
+          if opcion2 == "S" or opcion2 == "SI":
+            system("cls")
+            print(menu())
+            opcion = input("Ingresa una opcion: ")
+            break
+          elif opcion2 == "N" or opcion2 == "NO":
+            return "\nGracias por usar la libreria virtual"
+          else:
+            opcion2 = input("Debes ingresar S o N: " ).upper()
+
+print(libreria())
