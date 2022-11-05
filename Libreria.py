@@ -43,7 +43,7 @@ def libreria():
       print("Leyendo archivo de libros ...\n")
       datos = pd.read_csv("libros.csv")
       # Se imprime 3 libros del archivo
-      print(datos.iloc[0:3])
+      print(datos[["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES"]].iloc[0:3])
 
   # opción 2: Listar libros.
   def listar():
@@ -57,10 +57,10 @@ def libreria():
   def eliminar():
       print("Libros disponibles:\n")
       datos = pd.read_csv("libros.csv")
-      print(datos)       
+      print(datos.iloc[:,[1,2,3,4,5]])     
       elim = int(input("\nIngrese id del libro que desea eliminar: "))
       datos.drop(inplace=True, index = (elim-1))
-      print(datos)
+      print(datos.iloc[:,[1,2,3,4,5]])
 
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
@@ -75,11 +75,11 @@ def libreria():
         if (opcion == "1"):
           # Se imprime columna de ISBN
           print("LIBROS ORDENADOS POR ISBN\n")
-          print(datos["isbn"])  
+          print(datos["ISBN"])  
         elif (opcion == "2"):
           # Se imprime columna de titulos
           print("LIBROS ORDENADOS POR TITULO\n")
-          print(datos["titulo"])
+          print(datos["TITULO"])
         else:
           selector()
 
@@ -88,7 +88,7 @@ def libreria():
       # Se lee el archivo csv de libros
       libros_ordenados = pd.read_csv("libros.csv")
       # Se ordenan los libros por titulo con sort_values
-      libros_ordenados.sort_values(["titulo"], axis=0, ascending=[True], inplace=True)
+      libros_ordenados.sort_values(["TITULO"], axis=0, ascending=[True], inplace=True)
       print("Libros ordenados alfabéticamente por titulo:\n")
       # Se imprime columna de titulos ordenados de libros 
       print(libros_ordenados.iloc[:,[1]])
@@ -106,27 +106,30 @@ def libreria():
         opcion = input("Ingresar opción: ")    
         if opcion == "1":
           # Se imprime columna de autores
-          print(libros["autores"])
+          print(libros["AUTORES"])
         elif opcion == "2":
           # Se imprime columna de editorial
-          print(libros["editorial"])
+          print(libros["EDITORIAL"])
         elif opcion == "3":
           # Se imprime columna de genero
-          print(libros["genero"])
+          print(libros["GENERO"])
         else:
           selector()
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
   def buscar_autores():
       print("BUSCAR LIBRO POR EL NÚMERO DE AUTORES\n")
+      #Ingresamos el número de autores a buscar
       cant_autores = int(input("Ingrese el número de autores: "))
+      #Se lee el archivo libros.csv
       datos = pd.read_csv("libros.csv")
-      datos.set_index("titulo", inplace=True)
-      print(datos.loc[datos["num_autores"]==cant_autores,["autores"]]) 
+      datos.set_index("TITULO", inplace=True)
+      #Imprime solo datos de libros con el número de autores escogido
+      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL"]]) 
   
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
       class libro():
-          libros = ["id","titulo","genero","isbn","editorial","autores","num_autores"]
+          libros = ["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES","NUM_AUTORES"]
           def __init__(self):
             self.id = input("Ingrese ID: ")
             self.titulo = input("Ingresar el titulo del libro: ")
@@ -138,7 +141,7 @@ def libreria():
       insert = True
       while insert:
         libro1 = libro()
-        lib_datos = {"id":libro1.id, "titulo":libro1.titulo, "genero":libro1.genero, "isbn":libro1.isbn, "editorial":libro1.editorial, "autores":libro1.autores, "num_autores":libro1.num_autores}
+        lib_datos = {"ID":libro1.id, "TITULO":libro1.titulo, "GENERO":libro1.genero, "ISBN":libro1.isbn, "EDITORIAL":libro1.editorial, "AUTORES":libro1.autores, "NUM_AUTORES":libro1.num_autores}
         with open ('libros.csv','a',newline='') as nueva_linea:
           escribir = DictWriter(nueva_linea, fieldnames=libro1.libros)
           escribir.writerow(lib_datos)
