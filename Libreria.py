@@ -129,8 +129,8 @@ def libreria():
       while insert:
         libro1 = libro()
         lib_datos = {"id":libro1.id, "titulo":libro1.titulo, "genero":libro1.genero, "isbn":libro1.isbn, "editorial":libro1.editorial, "autores":libro1.autores}
-        with open ('libros.csv','a',newline='') as nueva_linea:
-          escribir = DictWriter(nueva_linea, fieldnames=libro1.libros)
+        with open ('libros.csv','a', newline = '') as nueva_linea:
+          escribir = DictWriter(nueva_linea, fieldnames = libro1.libros)
           escribir.writerow(lib_datos)
           nueva_linea.close()
         if (input("\nRegistrar otro libro? S/N: ")).lower() == "n":
@@ -149,7 +149,7 @@ def libreria():
       lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero]
       system("cls")
       lista_menu[opcion - 1]() 
-      opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
+      opcion2 = input("\nDeseas volver al menu principal? S/N: " ).upper()
       while True:
           if opcion2 == "S" or opcion2 == "SI":
             system("cls")
