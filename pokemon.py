@@ -43,30 +43,33 @@ def forma():
   #formas = input("que tipo de forma buscas: ")
   resp_formas = requests.get(pokemon+"pokemon-shape/")
 
-  print("************************************")
+  #print("************************************")
   dato_formas = resp_formas.json()
-  print("Estas son los tipos de formas que puedes elegir")
+  print("\nEstas son los tipos de formas que puedes elegir: \n")
   #print(dato)
 
   formas = dato_formas["results"]
+  lista_formas = []
   for i in range(len(formas)):
       nombres_formas = formas[i]["name"]
+      lista_formas.append(str(i+1)+"-"+nombres_formas)
       i = i + 1
       #print(len(especies))
-      print(nombres_formas, end="--")
+  print_en_columnas(lista_formas,4,ancho=20)
 
   forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
   resp_formas_final= requests.get(pokemon +"pokemon-shape/"+forma_final)
   dato_formas_final = resp_formas_final.json()
 
   formas_final = dato_formas_final["pokemon_species"]
-  print("Estos son los pokemones de la forma:",forma_final)
-
+  print("\nEstos son los pokemones de la forma:",forma_final,"\n")
+  lista_formas_final = []
   for i in range(len(formas_final)):
       nombres_formas_final = formas_final[i]["name"]
+      lista_formas_final.append(str(i+1)+"-"+nombres_formas_final)
       i = i + 1
       #print(len(especies))
-      print(nombres_formas_final, end="--")
+  print_en_columnas(lista_formas_final,25,ancho=20)
 
 def habilidades():
 
