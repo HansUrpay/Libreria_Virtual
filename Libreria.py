@@ -51,17 +51,22 @@ def libreria():
       print("Mostrando libros ...\n")
       datos = pd.read_csv("libros.csv")
       # Se imprime todos los libros del archivo
-      print(datos.iloc[:,[1,2,3,4,5]])
+      print(datos.iloc[:,[0,1,2,3,4,5]])
       
   # Opción 4: Eliminar libro.
   def eliminar():
       print("Libros disponibles:\n")
       datos = pd.read_csv("libros.csv")
-      print(datos.iloc[:,[1,2,3,4,5]])     
-      elim = int(input("\nIngrese id del libro que desea eliminar: "))
+      print(datos.iloc[:,[0,1,2,3,4,5]])
+      elim = int(input("\nIngrese id del libro que desea eliminar: ")) 
+    
+      while elim not in datos.index:          
+        print("Ingrese un ID que se encuentre en la lista\n")
+        elim = int(input("\nIngrese id del libro que desea eliminar: ")) 
+      
       datos.drop(inplace=True, index = (elim-1))
-      print(datos.iloc[:,[1,2,3,4,5]])
-
+      print(datos.iloc[:,[0,1,2,3,4,5]])   
+      
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
       # Se lee el archivo de libros
@@ -115,6 +120,7 @@ def libreria():
           print(libros["GENERO"])
         else:
           selector()
+          
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
   def buscar_autores():
       print("BUSCAR LIBRO POR EL NÚMERO DE AUTORES\n")
