@@ -19,22 +19,21 @@
 # Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
 
 #INICIO DE TAREA
-import csv 
+import csv
 from csv import DictWriter
 import pandas as pd
-import os 
+from os import system
+system("cls")         
 
-# #Definimos la función para limpiar pantalla segun el SO
-def clean(): #Definimos la función para limpiar pantalla segun el SO
-  if os.name == "posix":
-    os.system ("clear")
-  elif os.name == "ce" or os.name == "nt" or os.name == "dos":
-    os.system ("cls")         
-    
 def libreria():
-  clean()
   def menu():
-        return("Opción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
+        return( "Opción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
+  
+  # def clean(): #Definimos la función para limpiar pantalla segun el SO
+  #   if os.name == "posix":
+  #     os.system ("clear")
+  #   elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+  #     os.system ("cls")
   
   # Agregar las funciones para cada opcion
 
@@ -53,8 +52,8 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       # Se imprime todos los libros del archivo
       print(datos.iloc[:,[0,1,2,3,4,5]])
-
-  # Opción 4: Eliminar libro.    
+      
+  # Opción 4: Eliminar libro.
   def eliminar():
         print("Libros disponibles:\n")
         datos = pd.read_csv("libros.csv")
@@ -77,28 +76,38 @@ def libreria():
       # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
       while True:
-        print("\nElija una opción del 1 al 3:\n")
+        print("\nElija una opción\n")
         print("1. Buscar por ISBN")
-        print("2. Buscar por título")
-        print("3. Volver al menu principal\n") 
-        opcion = input("Ingresar opción: ") 
+        print("2. Buscar por Título")
+        print("3. Salir\n")  
+        opcion = input("Ingresar opción: ")    
+        # Se realiza la busqueda por datos ISBN
         if (opcion == "1"):
-          # Se los datos del libro que se busca por ISBN
           print("Ingrese un número ISBN (número de 10 0 13 digitos),\nEjemplo: 9788437638973\n")
-          isbn_num = int(input("Ingrese número: "))
-          datos.set_index("ID", inplace=True)
-          print(datos.loc[datos["ISBN"]==isbn_num,["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+          # Se ingresa el número ISBN
+          isbn_num = input("Ingrese número: ")
+          # Se buscan las coincidencias
+          buscar_isbn = datos[datos["ISBN"].astype(str).str.contains(isbn_num, case=False)]
+          coincidencias_isbn = buscar_isbn.size
+          if coincidencias_isbn == 0:
+            print("\nNo se han encontrado coindiciencias")
+          else: 
+          # Se muestran las coincidencias
+            print(buscar_isbn[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+        # Se realiza la busqueda por titulo
         elif (opcion == "2"):
+          # Se ingresa el titulo o coincidencias
           name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
-          print(type(name_titulo))
-          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False, na=False)]
-          print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-          # datos.set_index("ID", inplace=True)
-          # print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]]
-        elif opcion == "3":
-          selector()
+          # Se buscan las coincidencias
+          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
+          coincidencias_titulo = buscar_titulo.size
+          if coincidencias_titulo == 0:
+            print("\nNo se han encontrado coindiciencias")
+          else:
+          # Se muestran las coincidencias      
+            print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
         else:
-            buscar_isbn_titulo()
+          selector()
 
   # Opción 6: Ordenar libros por título.
   def orden_por_titulo():
@@ -108,48 +117,50 @@ def libreria():
       libros_ordenados.sort_values(["TITULO"], axis=0, ascending=[True], inplace=True)
       print("Libros ordenados alfabéticamente por titulo:\n")
       # Se imprime columna de titulos ordenados de libros 
-      print(libros_ordenados.iloc[:,[0,1,2,3,4,5]])
+      print(libros_ordenados.iloc[:,[1]])
   
   #Opción 7: Buscar libro por autor, editorial o genero
   def buscar_autor_editorial_genero():
-      # Se lee el archivo de libros
-        while True:
-          print("\nElija una opcion del 1 al 4:\n")
-          print("1. Buscar por autor")
-          print("2. Buscar por editorial")
-          print("3. Buscar por genero")
-          print("4. Volver al menu principal\n")  
-          opcion = input("Ingresar opción: ") 
-          with open("libros.csv", "r",encoding="UTF-8") as file:
-            libros = csv.reader(file)
-            if opcion == "1":
-              clean()
-              busqueda = input("Ingresar el autor a buscar: ")
-              print("Busquedas encontradas: \n")
-              for fila in libros:
-                if busqueda.upper() in fila[5] or busqueda.lower() in fila[5] or busqueda.capitalize() in fila[5]:
-                  print(" ".join(fila))
-            elif opcion == "2":
-              clean()
-              busqueda = input("Ingresar la editorial a buscar: ")
-              print("Busquedas encontradas: \n")
-              for fila in libros:
-                if busqueda.upper() in fila[4] or busqueda.lower() in fila[4] or busqueda.capitalize() in fila[4]:
-                  print(" ".join(fila))
-            elif opcion == "3":
-              clean()
-              busqueda = input("Ingresar el genero a buscar: ")
-              print("Busquedas encontradas: \n")
-              for fila in libros:
-                if busqueda.upper() in fila[2] or busqueda.lower() in fila[2] or busqueda.capitalize() in fila[2]:
-                  print(" ".join(fila))
-            elif opcion == "4":
-              clean()
-              selector()
-            else:
-              buscar_autor_editorial_genero()
-
-  #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 
+    # Se lee el archivo de libros
+      while True:
+        print("\nElija una opcion del 1 al 4:\n")
+        print("1. Buscar por autor")
+        print("2. Buscar por editorial")
+        print("3. Buscar por genero")
+        print("4. Volver al menu principal\n")  
+        opcion = input("Ingresar opción: ") 
+        with open("libros.csv", "r",encoding="UTF-8") as file:
+          libros = csv.reader(file)
+          
+          if opcion == "1":
+            system("cls")
+            busqueda = input("Ingresar el autor a buscar: ")
+            print("Busquedas encontradas: \n")
+            for fila in libros:
+              if busqueda.upper() in fila[5] or busqueda.lower() in fila[5] or busqueda.capitalize() in fila[5]:
+                print(" ".join(fila))
+          
+          elif opcion == "2":
+            system("cls")
+            busqueda = input("Ingresar la editorial a buscar: ")
+            print("Busquedas encontradas: \n")
+            for fila in libros:
+              if busqueda.upper() in fila[4] or busqueda.lower() in fila[4] or busqueda.capitalize() in fila[4]:
+                print(" ".join(fila))
+          elif opcion == "3":
+            system("cls")
+            busqueda = input("Ingresar el genero a buscar: ")
+            print("Busquedas encontradas: \n")
+            for fila in libros:
+              if busqueda.upper() in fila[2] or busqueda.lower() in fila[2] or busqueda.capitalize() in fila[2]:
+                print(" ".join(fila))
+          elif opcion == "4":
+            system("cls")
+            selector()
+          else:
+            buscar_autor_editorial_genero()
+          
+  #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
   def buscar_autores():
       print("BUSCAR LIBRO POR EL NÚMERO DE AUTORES\n")
       #Ingresamos el número de autores a buscar
@@ -194,12 +205,12 @@ def libreria():
         opcion = input("Ingresa una opcion válida: ")
       else:
         lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores]
-        clean()
+        system("cls")
         lista_menu[opcion - 1]() 
         opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
         while True:
             if opcion2 == "S" or opcion2 == "SI":
-              clean()
+              system("cls")
               print(menu())
               opcion = input("Ingresa una opcion: ")
               break
@@ -209,6 +220,6 @@ def libreria():
               opcion2 = input("Debes ingresar S o N: " ).upper()
               
   print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
-  print(selector())      
-    
+  print(selector())            
+
 print(libreria())
