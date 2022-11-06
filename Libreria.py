@@ -78,26 +78,31 @@ def libreria():
         print("2. Buscar por Título")
         print("3. Salir\n")  
         opcion = input("Ingresar opción: ")    
+        # Se realiza la busqueda por datos ISBN
         if (opcion == "1"):
-          # Se los datos del libro que se busca por ISBN
           print("Ingrese un número ISBN (número de 10 0 13 digitos),\nEjemplo: 9788437638973\n")
-          isbn_num = int(input("Ingrese número: "))
-          datos.set_index("ID", inplace=True)
-          print(datos.loc[datos["ISBN"]==isbn_num,["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-        
+          # Se ingresa el número ISBN
+          isbn_num = input("Ingrese número: ")
+          # Se buscan las coincidencias
+          buscar_isbn = datos[datos["ISBN"].astype(str).str.contains(isbn_num, case=False)]
+          coincidencias_isbn = buscar_isbn.size
+          if coincidencias_isbn == 0:
+            print("\nNo se han encontrado coindiciencias")
+          else: 
+          # Se muestran las coincidencias
+            print(buscar_isbn[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+        # Se realiza la busqueda por titulo
         elif (opcion == "2"):
-        
+          # Se ingresa el titulo o coincidencias
           name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+          # Se buscan las coincidencias
           buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
-          print(type(buscar_titulo))
-          #print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-          
-          
-          # datos.set_index("ID", inplace=True)
-          # print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]])
-          
-          
-          
+          coincidencias_titulo = buscar_titulo.size
+          if coincidencias_titulo == 0:
+            print("\nNo se han encontrado coindiciencias")
+          else:
+          # Se muestran las coincidencias      
+            print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
         else:
           selector()
 
