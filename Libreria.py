@@ -220,6 +220,3 @@ def libreria():
   print(selector())            
 
 print(libreria())
-
-
-
