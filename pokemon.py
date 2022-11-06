@@ -12,7 +12,7 @@ def grouper(lista, n, fillvalue=""):
     return zip_longest(*args, fillvalue=fillvalue)
 
 def print_en_columnas(lista, numfilas, ancho=15):
-  for fila in zip(grouper(lista, numfilas)):
+  for fila in zip(*grouper(lista, numfilas)):
     print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
