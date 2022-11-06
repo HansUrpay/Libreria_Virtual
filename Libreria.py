@@ -88,11 +88,9 @@ def libreria():
         elif (opcion == "2"):
         
           name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
-          
-          print(type(name_titulo))
-        
-          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False, na=False)]
-          print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
+          print(type(buscar_titulo))
+          #print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
           
           
           # datos.set_index("ID", inplace=True)
