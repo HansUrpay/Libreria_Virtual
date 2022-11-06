@@ -1,6 +1,7 @@
 import requests
 import json
 from os import system
+from itertools import zip_longest
 system("cls")
 
 pokemon = "https://pokeapi.co/api/v2/"
@@ -90,6 +91,40 @@ def habilidades():
       print(nombres_habilidades_final, end="--")
 
 
+
+def habitats():
+  resp_habitats = requests.get(pokemon + "pokemon-habitat/")
+  dato_habitats = resp_habitats.json()
+  print("Estas son los tipos de habitats que puedes elegir")
+  habitat = dato_habitats["results"]
+  lista_habitats = []
+  for i in range(len(habitat)):
+      nombres_habitat = habitat[i]["name"]
+      lista_habitats.append(str(i + 1) + "-" + nombres_habitat)
+      i = i + 1
+  print_en_columnas(lista_habitats, 3, ancho=20)
+
+  habitat_final = input("\nCual es el habitat que desea buscar para los pokemons: ")
+  resp_habitats_final= requests.get(pokemon +"pokemon-habitat/"+habitat_final)
+  dato_habitats_final = resp_habitats_final.json()
+
+  habitats_final = dato_habitats_final["pokemon_species"]
+  print("Estos son los pokemones de la habitat:", habitat_final)
+  lista_habitats_final = []
+  for i in range(len(habitats_final)):
+      nombres_habitats_final = habitats_final[i]['name']
+      lista_habitats_final.append(str(i + 1) + "-" + nombres_habitats_final)
+      i = i + 1
+  print_en_columnas(lista_habitats_final, 15, ancho=20)
+
+def grouper(lista, n, fillvalue=""):
+    args = [iter(lista)] * n
+    return zip_longest(args, fillvalue=fillvalue)
+
+def print_en_columnas(lista, numfilas, ancho=15):
+  for fila in zip(grouper(lista, numfilas)):
+    print("".join(f"{nombre:{ancho}s}" for nombre in fila))
+
 menu()
 opcion = int(input("Ingresa una opcion: "))
 while True:
@@ -113,6 +148,15 @@ while True:
       break
   if opcion == 3:
     habilidades()
+    opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
+    if opcion2 == "S" or opcion2 == "SI":
+      menu()
+      opcion = int(input("Ingresa una opcion: "))
+    else:
+      print("Gracias por usar la libreria virtual")
+      break
+  if opcion == 4:
+    habitats()
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
