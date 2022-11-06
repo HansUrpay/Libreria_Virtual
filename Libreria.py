@@ -71,6 +71,7 @@ def libreria():
               break
           except:
             elim = input("\nIngrese id del libro que desea eliminar: ")
+            
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
       # Se lee el archivo de libros
@@ -91,13 +92,13 @@ def libreria():
           name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
           print(type(name_titulo))
           buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False, na=False)]
-          print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]]
+          print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
           # datos.set_index("ID", inplace=True)
           # print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]]
-        else:
+        elif opcion == "3":
           selector()
         else:
-          buscar_isbn_titulo()
+            buscar_isbn_titulo()
 
   # Opción 6: Ordenar libros por título.
   def orden_por_titulo():
