@@ -91,7 +91,7 @@ def habilidades():
       print(nombres_habilidades_final, end="--")
 
 
-
+# opcion 4 habitats de pokemons
 def habitats():
   resp_habitats = requests.get(pokemon + "pokemon-habitat/")
   dato_habitats = resp_habitats.json()
