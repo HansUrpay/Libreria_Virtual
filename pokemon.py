@@ -3,6 +3,7 @@ import json
 from os import system
 from itertools import zip_longest
 system("cls")
+from itertools import zip_longest
 
 pokemon = "https://pokeapi.co/api/v2/"
 
@@ -11,7 +12,7 @@ def grouper(lista, n, fillvalue=""):
     return zip_longest(*args, fillvalue=fillvalue)
 
 def print_en_columnas(lista, numfilas, ancho=15):
-  for fila in zip(grouper(lista, numfilas)):
+  for fila in zip(*grouper(lista, numfilas)):
     print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
@@ -21,7 +22,9 @@ def generacion():
 
   generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
-
+  #cabezera = resp.headers
+  #print(cabezera)
+  #print("************************************")
   dato_generacion = resp_generacion.json()
 
   especies = dato_generacion["pokemon_species"]
@@ -48,7 +51,7 @@ def forma():
       nombres_formas = formas[i]["name"]
       lista_formas.append(str(i+1)+"-"+nombres_formas)
       i = i + 1
-
+      #print(len(especies))
   print_en_columnas(lista_formas,4,ancho=20)
 
   forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
@@ -56,13 +59,12 @@ def forma():
   dato_formas_final = resp_formas_final.json()
 
   formas_final = dato_formas_final["pokemon_species"]
-  print("\nEstos son los pokemones de la forma:",forma_final)
+  print("\nEstos son los pokemones de la forma:",forma_final,"\n")
   lista_formas_final = []
   for i in range(len(formas_final)):
       nombres_formas_final = formas_final[i]["name"]
       lista_formas_final.append(str(i+1)+"-"+nombres_formas_final)
       i = i + 1
-
   print_en_columnas(lista_formas_final,25,ancho=20)
 
 def habilidades():
@@ -78,7 +80,6 @@ def habilidades():
       nombres_habilidad = habilidad[i]["name"]
       lista_habilidad.append(str(i+1)+"-"+nombres_habilidad)
       i = i + 1
-
   print_en_columnas(lista_habilidad,4,ancho=20)
 
   habilidad_final = input("\nCual es la habilidad que desea buscar para los pokemons: ")
@@ -133,7 +134,7 @@ while True:
       menu()
       opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("Gracias por usar la libreria virtual")
+      print("\nGracias por usar la libreria virtual")
       break
   if opcion == 2:
     forma()
@@ -142,7 +143,7 @@ while True:
       menu()
       opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("Gracias por usar la libreria virtual")
+      print("\nGracias por usar la libreria virtual")
       break
   if opcion == 3:
     habilidades()
@@ -160,6 +161,7 @@ while True:
       menu()
       opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("Gracias por usar la libreria virtual")
+      print("\nGracias por usar la libreria virtual")
       break
+
 
