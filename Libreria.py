@@ -165,19 +165,6 @@ def libreria():
       #Imprime solo datos de libros con el número de autores escogido
       print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]])
       
-  # Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
-  def editar_actualizar():
-    abrir = open("libros.csv","r")
-    datos = csv.DictReader(abrir)
-    print(datos)
-    
-    up_dt = []
-    for r in datos:
-      print(r)
-        
-    
-    pass
-  
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
       class libro():
