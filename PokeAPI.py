@@ -125,6 +125,22 @@ def habitats():
       i = i + 1
   print_en_columnas(lista_habitats_final, 15, ancho=20)
 
+# opcion 5 Tipos de pokemon
+def tipos():
+
+  resp_tipos = requests.get(pokemon+"type/")
+
+  dato_tipos = resp_tipos.json()
+  print("\nEstas son los tipos de pokemons que puedes elegir\n")
+
+  tipos = dato_tipos["results"]
+  lista_tipos = []
+  for i in range(len(tipos)):
+      nombres_tipos = tipos[i]["name"]
+      lista_tipos.append(str(i+1)+"-"+nombres_tipos)
+      i = i + 1
+  pass
+
 def selector():
     menu()
     opcion = input("\nIngresa una opcion: ")
