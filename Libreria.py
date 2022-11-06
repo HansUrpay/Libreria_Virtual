@@ -101,7 +101,7 @@ def libreria():
       # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
       while True:
-        print("Elija una opción del 1 al 3:\n")
+        print("\nElija una opción del 1 al 3:\n")
         print("1. Buscar por ISBN")
         print("2. Buscar por Título")
         print("3. Volver al menu principal\n")  
@@ -116,13 +116,10 @@ def libreria():
           buscar_isbn = datos[datos["ISBN"].astype(str).str.contains(isbn_num, case=False)]
           coincidencias_isbn = buscar_isbn.size
           if coincidencias_isbn == 0:
-            print("\nNo se han encontrado coindiciencias")
-            clean()
-            break
+            print("\nNo se han encontrado coindiciencias\n")
           else: 
           # Se muestran las coincidencias
             print(buscar_isbn[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-            break
         # Se realiza la busqueda por titulo
         elif (opcion == "2"):
           clean()
@@ -132,14 +129,10 @@ def libreria():
           buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
           coincidencias_titulo = buscar_titulo.size
           if coincidencias_titulo == 0:
-            print("\nNo se han encontrado coindiciencias")
-            clean()
-            break
+            print("\nNo se han encontrado coindiciencias\n")
           else:
           # Se muestran las coincidencias      
             print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-            clean()
-            break
         elif (opcion == "3"):
           clean()
           selector()
