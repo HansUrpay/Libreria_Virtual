@@ -22,21 +22,17 @@ def generacion():
 
   generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
-  #cabezera = resp.headers
-  #print(cabezera)
-  #print("************************************")
   dato_generacion = resp_generacion.json()
 
   especies = dato_generacion["pokemon_species"]
   print("\nEstos son los pokemones de la generacion:",generacion,"\n")
   lista_generacion = []
   for i in range(len(especies)):
-    nombres = especies[i]["name"]
-    lista_generacion.append(str(i+1)+"  -"+nombres)
-    i = i + 1
-  print(lista_generacion)
-  print_en_columnas(lista_generacion, 25, ancho=20)
-
+      nombres = especies[i]["name"]
+      lista_generacion.append(str(i+1)+"-"+nombres)
+      i = i + 1
+      #print(len(especies))
+  print_en_columnas(lista_generacion,25,ancho=20)
 
 def forma():
 
@@ -51,7 +47,6 @@ def forma():
       nombres_formas = formas[i]["name"]
       lista_formas.append(str(i+1)+"-"+nombres_formas)
       i = i + 1
-      #print(len(especies))
   print_en_columnas(lista_formas,4,ancho=20)
 
   forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
