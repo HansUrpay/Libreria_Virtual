@@ -87,9 +87,15 @@ def libreria():
         
         elif (opcion == "2"):
           # Se imprime columna de titulos
-          name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
-          datos.set_index("ID", inplace=True)
-          print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]])
+          name_titulo = str(input("Ingrese el titulo del libro que desea buscar: "))
+          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False, na=False)]
+          print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+                
+          # datos.set_index("ID", inplace=True)
+          # print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]])
+          
+          
+          
         else:
           selector()
 
