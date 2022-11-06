@@ -1,6 +1,7 @@
 import requests
 import json
 from os import system
+from itertools import zip_longest
 system("cls")
 from itertools import zip_longest
 
@@ -11,7 +12,7 @@ def grouper(lista, n, fillvalue=""):
     return zip_longest(*args, fillvalue=fillvalue)
 
 def print_en_columnas(lista, numfilas, ancho=15):
-  for fila in zip(*grouper(lista, numfilas)):
+  for fila in zip(grouper(lista, numfilas)):
     print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
@@ -21,12 +22,7 @@ def generacion():
 
   generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
-  #cabezera = resp.headers
-  #print(cabezera)
-  #print("************************************")
   dato_generacion = resp_generacion.json()
-  #print("************************************")
-  #print(dato)
 
   especies = dato_generacion["pokemon_species"]
   print("\nEstos son los pokemones de la generacion:",generacion,"\n")
@@ -40,13 +36,10 @@ def generacion():
 
 def forma():
 
-  #formas = input("que tipo de forma buscas: ")
   resp_formas = requests.get(pokemon+"pokemon-shape/")
 
-  #print("************************************")
   dato_formas = resp_formas.json()
   print("\nEstas son los tipos de formas que puedes elegir: \n")
-  #print(dato)
 
   formas = dato_formas["results"]
   lista_formas = []
@@ -54,7 +47,6 @@ def forma():
       nombres_formas = formas[i]["name"]
       lista_formas.append(str(i+1)+"-"+nombres_formas)
       i = i + 1
-      #print(len(especies))
   print_en_columnas(lista_formas,4,ancho=20)
 
   forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
@@ -68,18 +60,14 @@ def forma():
       nombres_formas_final = formas_final[i]["name"]
       lista_formas_final.append(str(i+1)+"-"+nombres_formas_final)
       i = i + 1
-      #print(len(especies))
   print_en_columnas(lista_formas_final,25,ancho=20)
 
 def habilidades():
 
-  #formas = input("que tipo de forma buscas: ")
   resp_habilidades = requests.get(pokemon+"ability/")
 
-  #print("************************************")
   dato_habilidades = resp_habilidades.json()
   print("\nEstas son los tipos de habilidades que puedes elegir\n")
-  #print(dato)
 
   habilidad = dato_habilidades["results"]
   lista_habilidad = []
@@ -87,7 +75,6 @@ def habilidades():
       nombres_habilidad = habilidad[i]["name"]
       lista_habilidad.append(str(i+1)+"-"+nombres_habilidad)
       i = i + 1
-      #print(len(especies))
   print_en_columnas(lista_habilidad,4,ancho=20)
 
   habilidad_final = input("\nCual es la habilidad que desea buscar para los pokemons: ")
@@ -101,8 +88,35 @@ def habilidades():
       nombres_habilidades_final = habilidades_final[i]["pokemon"]['name']
       lista_habilidad_final.append(str(i+1)+"-"+nombres_habilidades_final)
       i = i + 1
-      #print(len(especies))
+
   print_en_columnas(lista_habilidad_final,10,ancho=30)
+
+
+# opcion 4 habitats de pokemons
+def habitats():
+  resp_habitats = requests.get(pokemon + "pokemon-habitat/")
+  dato_habitats = resp_habitats.json()
+  print("Estas son los tipos de habitats que puedes elegir")
+  habitat = dato_habitats["results"]
+  lista_habitats = []
+  for i in range(len(habitat)):
+      nombres_habitat = habitat[i]["name"]
+      lista_habitats.append(str(i + 1) + "-" + nombres_habitat)
+      i = i + 1
+  print_en_columnas(lista_habitats, 3, ancho=20)
+
+  habitat_final = input("\nCual es el habitat que desea buscar para los pokemons: ")
+  resp_habitats_final= requests.get(pokemon +"pokemon-habitat/"+habitat_final)
+  dato_habitats_final = resp_habitats_final.json()
+
+  habitats_final = dato_habitats_final["pokemon_species"]
+  print("Estos son los pokemones de la habitat:", habitat_final)
+  lista_habitats_final = []
+  for i in range(len(habitats_final)):
+      nombres_habitats_final = habitats_final[i]['name']
+      lista_habitats_final.append(str(i + 1) + "-" + nombres_habitats_final)
+      i = i + 1
+  print_en_columnas(lista_habitats_final, 15, ancho=20)
 
 
 menu()
