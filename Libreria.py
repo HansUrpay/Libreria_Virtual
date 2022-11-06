@@ -192,7 +192,7 @@ def libreria():
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
       clean()
-      class libro():
+      class Libro():
           libros = ["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES","NUM_AUTORES"]
           def __init__(self):
             self.id = input("Ingrese ID: ")
@@ -202,16 +202,14 @@ def libreria():
             self.editorial = input("Ingrese editorial: ")
             self.autores = input("Ingrese autores: ")
             self.num_autores = input("Ingrese el número de autores: ")  
-      insert = True
-      while insert:
-        libro1 = libro()
+      while True:
+        libro1 = Libro()
         lib_datos = {"ID":libro1.id, "TITULO":libro1.titulo, "GENERO":libro1.genero, "ISBN":libro1.isbn, "EDITORIAL":libro1.editorial, "AUTORES":libro1.autores, "NUM_AUTORES":libro1.num_autores}
         with open ('libros.csv','a',newline='') as nueva_linea:
           escribir = DictWriter(nueva_linea, fieldnames=libro1.libros)
           escribir.writerow(lib_datos)
           nueva_linea.close()
-        if (input("\nRegistrar otro libro? S/N: ")).lower() == "n":
-          insert = False
+          break
             
   # Menú de opciones para el usuario  
   def selector():
@@ -220,8 +218,8 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores]
-        if opcion == 8:
+        lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores, guardar]
+        if opcion == 9:
           return "\nGracias por usar la libreria virtual" 
         else:
           lista_menu[opcion - 1]()
