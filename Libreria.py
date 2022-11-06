@@ -40,6 +40,7 @@ def libreria():
 
   # opcion 1: leer archivo de disco duro (.txt o csv) que cargue 3 libros
   def leer_archivo():
+      clean()
       # Se lee el archivo de libros
       print("Leyendo archivo de libros ...\n")
       datos = pd.read_csv("libros.csv")
@@ -48,6 +49,7 @@ def libreria():
 
   # opción 2: Listar libros.
   def listar():
+      clean()
       # Se lee el archivo de libros
       print("Mostrando libros ...\n")
       datos = pd.read_csv("libros.csv")
@@ -56,25 +58,28 @@ def libreria():
       
   # Opción 4: Eliminar libro.
   def eliminar():
-        print("Libros disponibles:\n")
-        datos = pd.read_csv("libros.csv")
-        print(datos.iloc[:,[0,1,2,3,4,5]])
-        elim = input("\nIngrese el id del libro que desea eliminar: ")
-        while True:
-          try:
-            elim = int(elim)
-            if elim not in datos.index:
-              elim = input("\nIngrese el id del libro que desea eliminar: ")
-            else:
-              clean()
-              datos.drop(inplace=True, index = (elim-1))
-              print(datos.iloc[:,[0,1,2,3,4,5]])
-              break
-          except:
-            elim = input("\nIngrese el id del libro que desea eliminar: ")
+    clean()
+    print("Libros disponibles:\n")
+    datos = pd.read_csv("libros.csv")
+    print(datos.iloc[:,[0,1,2,3,4,5]])
+    print()
+    elim = input("Ingrese el id del libro que desea eliminar: ")
+    while True:
+      try:
+        elim = int(elim)
+        if elim not in datos.index or elim == 0:
+          elim = input("Ingrese el id del libro que desea eliminar: ")
+        else:
+          clean()
+          datos.drop(inplace=True, index = (elim-1))
+          print(datos.iloc[:,[0,1,2,3,4,5]])
+          break
+      except:
+        elim = input("Ingrese el id del libro que desea eliminar: ")
             
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
+      clean()
       # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
       while True:
@@ -126,17 +131,19 @@ def libreria():
 
   # Opción 6: Ordenar libros por título.
   def orden_por_titulo():
-      # Se lee el archivo csv de libros
-      libros_ordenados = pd.read_csv("libros.csv")
-      # Se ordenan los libros por titulo con sort_values
-      libros_ordenados.sort_values(["TITULO"], axis=0, ascending=[True], inplace=True)
-      print("Libros ordenados alfabéticamente por titulo:\n")
-      # Se imprime columna de titulos ordenados de libros 
-      print(libros_ordenados.iloc[:,[0, 1, 2, 3, 4, 5]])
+    clean()
+    # Se lee el archivo csv de libros
+    libros_ordenados = pd.read_csv("libros.csv")
+    # Se ordenan los libros por titulo con sort_values
+    libros_ordenados.sort_values(["TITULO"], axis=0, ascending=[True], inplace=True)
+    print("Libros ordenados alfabéticamente por titulo:\n")
+    # Se imprime columna de titulos ordenados de libros 
+    print(libros_ordenados.iloc[:,[0, 1, 2, 3, 4, 5]])
   
   #Opción 7: Buscar libro por autor, editorial o genero
   def buscar_autor_editorial_genero():
-    # Se lee el archivo de libros
+      clean()
+      # Se lee el archivo de libros
       while True:
         print("\nElija una opcion del 1 al 4:\n")
         print("1. Buscar por autor")
@@ -175,6 +182,7 @@ def libreria():
           
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
   def buscar_autores():
+      clean()
       print("BUSCAR LIBRO POR EL NÚMERO DE AUTORES\n")
       #Ingresamos el número de autores a buscar
       cant_autores = int(input("Ingrese el número de autores: "))
@@ -186,6 +194,7 @@ def libreria():
   
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
+      clean()
       class libro():
           libros = ["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES","NUM_AUTORES"]
           def __init__(self):
@@ -214,26 +223,25 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-      except:
-        opcion = input("Ingresa una opcion válida: ")
-      else:
         lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores]
-        clean()
         if opcion == 8:
           return "\nGracias por usar la libreria virtual" 
         else:
           lista_menu[opcion - 1]()
           opcion2 = input("\nDeseas volver al menu principal? S/N: " ).upper()
           while True:
-              if opcion2 == "S" or opcion2 == "SI":
-                clean()
-                print(menu())
-                opcion = input("Ingresa una opcion: ")
-                break
-              elif opcion2 == "N" or opcion2 == "NO":
-                return "\nGracias por usar la libreria virtual"
-              else:
-                opcion2 = input("Debes ingresar S o N: " ).upper()
+            if opcion2 == "S" or opcion2 == "SI":
+              clean()
+              print(menu())
+              opcion = input("Ingresa una opcion: ")
+              break
+            elif opcion2 == "N" or opcion2 == "NO":
+              return "\nGracias por usar la libreria virtual"
+            else:
+              opcion2 = input("Debes ingresar S o N: " ).upper()
+      except:
+        opcion = input("Ingresa una opcion válida: ")
+        
               
   print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
   print(selector())            
