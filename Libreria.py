@@ -37,8 +37,6 @@ def libreria():
   def menu():
         return("Opción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
   
-  
-  
   # Agregar las funciones para cada opcion
 
   # opcion 1: leer archivo de disco duro (.txt o csv) que cargue 3 libros
