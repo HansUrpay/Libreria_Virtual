@@ -34,7 +34,7 @@ def libreria():
   clean()
   # Descripcion de opciones para el usuario
   def menu():
-        return( "Opción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
+        return( "1. Leer archivo de libros.\n2. Mostrar libros.\n3. Agregar libro.\n4. Eliminar libro.\n5. Buscar libro por ISBN o por título.\n6. Ordenar libros por título.\n7. Buscar libro por autor, editorial o género. \n8. Buscar libro por número de autores. \n9. Editar o actualizar datos de un libro.\n10. Guardar libros en archivo.\n11. Salir\n")
 
   # Agregar las funciones para cada opcion
 
@@ -59,31 +59,33 @@ def libreria():
         print("Libros disponibles:\n")
         datos = pd.read_csv("libros.csv")
         print(datos.iloc[:,[0,1,2,3,4,5]])
-        elim = input("\nIngrese id del libro que desea eliminar: ")
+        elim = input("\nIngrese el id del libro que desea eliminar: ")
         while True:
           try:
             elim = int(elim)
             if elim not in datos.index:
-              elim = input("\nIngrese id del libro que desea eliminar: ")
+              elim = input("\nIngrese el id del libro que desea eliminar: ")
             else:
+              clean()
               datos.drop(inplace=True, index = (elim-1))
               print(datos.iloc[:,[0,1,2,3,4,5]])
               break
           except:
-            elim = input("\nIngrese id del libro que desea eliminar: ")
+            elim = input("\nIngrese el id del libro que desea eliminar: ")
             
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
       # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
       while True:
-        print("\nElija una opción del 1 al 3:\n")
+        print("Elija una opción del 1 al 3:\n")
         print("1. Buscar por ISBN")
         print("2. Buscar por Título")
-        print("3. Salir\n")  
+        print("3. Volver al menu principal\n")  
         opcion = input("Ingresar opción: ")    
         # Se realiza la busqueda por datos ISBN
         if (opcion == "1"):
+          clean()
           print("Ingrese un número ISBN (número de 10 0 13 digitos),\nEjemplo: 9788437638973\n")
           # Se ingresa el número ISBN
           isbn_num = input("Ingrese número: ")
@@ -92,11 +94,15 @@ def libreria():
           coincidencias_isbn = buscar_isbn.size
           if coincidencias_isbn == 0:
             print("\nNo se han encontrado coindiciencias")
+            clean()
+            break
           else: 
           # Se muestran las coincidencias
             print(buscar_isbn[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+            break
         # Se realiza la busqueda por titulo
         elif (opcion == "2"):
+          clean()
           # Se ingresa el titulo o coincidencias
           name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
           # Se buscan las coincidencias
@@ -104,12 +110,18 @@ def libreria():
           coincidencias_titulo = buscar_titulo.size
           if coincidencias_titulo == 0:
             print("\nNo se han encontrado coindiciencias")
+            clean()
+            break
           else:
           # Se muestran las coincidencias      
             print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+            clean()
+            break
         elif (opcion == "3"):
+          clean()
           selector()
         else:
+          clean()
           buscar_isbn_titulo()
 
   # Opción 6: Ordenar libros por título.
@@ -207,20 +219,23 @@ def libreria():
       else:
         lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores]
         clean()
-        lista_menu[opcion - 1]() 
-        opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
-        while True:
-            if opcion2 == "S" or opcion2 == "SI":
-              clean()
-              print(menu())
-              opcion = input("Ingresa una opcion: ")
-              break
-            elif opcion2 == "N" or opcion2 == "NO":
-              return "\nGracias por usar la libreria virtual"
-            else:
-              opcion2 = input("Debes ingresar S o N: " ).upper()
+        if opcion == 8:
+          return "\nGracias por usar la libreria virtual" 
+        else:
+          lista_menu[opcion - 1]()
+          opcion2 = input("\nDeseas volver al menu principal? S/N: " ).upper()
+          while True:
+              if opcion2 == "S" or opcion2 == "SI":
+                clean()
+                print(menu())
+                opcion = input("Ingresa una opcion: ")
+                break
+              elif opcion2 == "N" or opcion2 == "NO":
+                return "\nGracias por usar la libreria virtual"
+              else:
+                opcion2 = input("Debes ingresar S o N: " ).upper()
               
   print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
   print(selector())            
 
-print(libreria())
+libreria()
