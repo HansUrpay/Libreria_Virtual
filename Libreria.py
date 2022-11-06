@@ -142,43 +142,40 @@ def libreria():
   
   #Opción 7: Buscar libro por autor, editorial o genero
   def buscar_autor_editorial_genero():
-      clean()
       # Se lee el archivo de libros
       while True:
+        clean()
         print("\nElija una opcion del 1 al 4:\n")
         print("1. Buscar por autor")
         print("2. Buscar por editorial")
         print("3. Buscar por genero")
         print("4. Volver al menu principal\n")  
         opcion = input("Ingresar opción: ") 
-        with open("libros.csv", "r",encoding="UTF-8") as file:
-          libros = csv.reader(file)
-          if opcion == "1":
-            clean()
-            busqueda = input("Ingresar el autor a buscar: ")
-            print("Busquedas encontradas: \n")
-            for fila in libros:
-              if busqueda.upper() in fila[5] or busqueda.lower() in fila[5] or busqueda.capitalize() in fila[5]:
-                print(" ".join(fila))
-          elif opcion == "2":
-            clean()
-            busqueda = input("Ingresar la editorial a buscar: ")
-            print("Busquedas encontradas: \n")
-            for fila in libros:
-              if busqueda.upper() in fila[4] or busqueda.lower() in fila[4] or busqueda.capitalize() in fila[4]:
-                print(" ".join(fila))
-          elif opcion == "3":
-            clean()
-            busqueda = input("Ingresar el genero a buscar: ")
-            print("Busquedas encontradas: \n")
-            for fila in libros:
-              if busqueda.upper() in fila[2] or busqueda.lower() in fila[2] or busqueda.capitalize() in fila[2]:
-                print(" ".join(fila))
-          elif opcion == "4":
-            clean()
-            selector()
-          else:
-            buscar_autor_editorial_genero()
+        try:
+          opcion = int(opcion)
+          lista_opciones = ["el autor", "la editorial", "el genero"]
+          filas = [0, 5, 4, 2]
+          with open("libros.csv", "r",encoding="UTF-8") as file:
+            libros = csv.reader(file)
+            if opcion == 4:
+              clean()
+              selector()
+            if opcion in range(1, 4):
+              clean()
+              busqueda = input(f"Ingresa {lista_opciones[opcion - 1]} a buscar: ")
+              print("\nBusquedas encontradas: \n")
+              count = 0
+              for fila in libros:
+                if busqueda.upper() in fila[filas[opcion]] or busqueda.lower() in fila[filas[opcion]] or busqueda.capitalize() in fila[filas[opcion]]:
+                  count += 1
+                  coincidencia = " ".join(fila)
+                  if coincidencia != "ID TITULO GENERO ISBN EDITORIAL AUTORES NUM_AUTORES":
+                    print(coincidencia)
+              if count == 0:
+                print(count)
+              break
+        except:
+          buscar_autor_editorial_genero()
           
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
   def buscar_autores():
