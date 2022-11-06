@@ -54,14 +54,24 @@ def libreria():
       # Se imprime todos los libros del archivo
       print(datos.iloc[:,[0,1,2,3,4,5]])
       
-  # Opción 4: Eliminar libro.
+  # Opción 4: Eliminar libro. 
   def eliminar():
-      print("Libros disponibles:\n")
-      datos = pd.read_csv("libros.csv")
-      print(datos.iloc[:,[1,2,3,4,5]])     
-      elim = int(input("\nIngrese id del libro que desea eliminar: "))
-      datos.drop(inplace=True, index = (elim-1))
-      print(datos.iloc[:,[1,2,3,4,5]])
+        print("Libros disponibles:\n")
+        datos = pd.read_csv("libros.csv")
+        print(datos.iloc[:,[0,1,2,3,4,5]])
+        elim = input("\nIngrese id del libro que desea eliminar: ")
+        while True:
+          try:
+            elim = int(elim)
+            if elim not in datos.index:          
+              print("\nIngrese id del libro que desea eliminar: ")
+              elim = input("\nIngrese id del libro que desea eliminar: ")
+            else:
+              datos.drop(inplace=True, index = (elim-1))
+              print(datos.iloc[:,[0,1,2,3,4,5]])
+              break
+          except:
+            elim = input("\nIngrese id del libro que desea eliminar: ")
 
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
@@ -199,6 +209,3 @@ def libreria():
   print(selector())      
     
 print(libreria())
-
-
-
