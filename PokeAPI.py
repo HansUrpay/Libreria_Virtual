@@ -162,7 +162,7 @@ def selector():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [generacion, forma, habilidades, habitats]
+        lista_menu = [generacion, forma, habilidades, habitats, tipos]
         if opcion == 5:
           return "\nGracias por usar la pokeapi" 
         else:
