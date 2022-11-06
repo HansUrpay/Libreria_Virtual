@@ -127,7 +127,7 @@ def habitats():
 
 # opcion 5 Tipos de pokemon
 def tipos():
-
+  clean()
   resp_tipos = requests.get(pokemon+"type/")
 
   dato_tipos = resp_tipos.json()
@@ -163,7 +163,7 @@ def selector():
       try:
         opcion = int(opcion)
         lista_menu = [generacion, forma, habilidades, habitats, tipos]
-        if opcion == 5:
+        if opcion == 6:
           return "\nGracias por usar la pokeapi" 
         else:
           lista_menu[opcion - 1]()
