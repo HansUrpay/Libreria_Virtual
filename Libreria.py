@@ -237,6 +237,7 @@ def libreria():
           while True:
             if opcion2 == "S" or opcion2 == "SI":
               clean()
+              print("Menu principal:\n")
               print(menu())
               opcion = input("Ingresa una opcion: ")
               break

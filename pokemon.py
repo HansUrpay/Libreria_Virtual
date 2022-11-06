@@ -20,21 +20,20 @@ def print_en_columnas(lista, numfilas, ancho=15):
     print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
-  clean()
-  print("1. Mostrar pokemons por generación \n2. Mostrar pokemons por forma. \n3. Mostrar pokemons por habilidad. \n4. Mostrar pokemons por habitat. \n5. Mostrar pokemons por tipo.")
+  print("1. Mostrar pokemons por generación \n2. Mostrar pokemons por forma. \n3. Mostrar pokemons por habilidad. \n4. Mostrar pokemons por hábitat. \n5. Mostrar pokemons por tipo.\n6. Salir")
 
 def generacion():
   clean()
-  generacion = input("\nIngrese la generacion del 1 al 8: ")
+  generacion = input("Ingrese la generacion del 1 al 8: ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
   dato_generacion = resp_generacion.json()
 
   especies = dato_generacion["pokemon_species"]
-  print("\nEstos son los pokemones de la generacion:",generacion,"\n")
+  print("\nEstos son los pokemons de la generacion:",generacion,"\n")
   lista_generacion = []
   for i in range(len(especies)):
       nombres = especies[i]["name"]
-      lista_generacion.append(str(i+1)+"-"+nombres)
+      lista_generacion.append(str(i+1)+". "+ str(nombres).capitalize())
       i = i + 1
       #print(len(especies))
   print_en_columnas(lista_generacion,25,ancho=20)
@@ -59,11 +58,11 @@ def forma():
   dato_formas_final = resp_formas_final.json()
 
   formas_final = dato_formas_final["pokemon_species"]
-  print("\nEstos son los pokemones de la forma:",forma_final,"\n")
+  print("\nEstos son los pokemons de la forma:",forma_final,"\n")
   lista_formas_final = []
   for i in range(len(formas_final)):
       nombres_formas_final = formas_final[i]["name"]
-      lista_formas_final.append(str(i+1)+"-"+nombres_formas_final)
+      lista_formas_final.append(str(i+1)+". "+ str(nombres_formas_final).capitalize())
       i = i + 1
   print_en_columnas(lista_formas_final,25,ancho=20)
 
@@ -78,7 +77,7 @@ def habilidades():
   lista_habilidad = []
   for i in range(len(habilidad)):
       nombres_habilidad = habilidad[i]["name"]
-      lista_habilidad.append(str(i+1)+"-"+nombres_habilidad)
+      lista_habilidad.append(str(i+1)+"- "+nombres_habilidad)
       i = i + 1
   print_en_columnas(lista_habilidad,4,ancho=20)
 
@@ -87,11 +86,11 @@ def habilidades():
   dato_habilidades_final = resp_habilidad_final.json()
 
   habilidades_final = dato_habilidades_final["pokemon"]
-  print("\nEstos son los pokemones de la habilidad:",habilidad_final+"\n")
+  print("\nEstos son los pokemons de la habilidad:",habilidad_final+"\n")
   lista_habilidad_final = []
   for i in range(len(habilidades_final)):
       nombres_habilidades_final = habilidades_final[i]["pokemon"]['name']
-      lista_habilidad_final.append(str(i+1)+"-"+nombres_habilidades_final)
+      lista_habilidad_final.append(str(i+1)+". "+ str(nombres_habilidades_final).capitalize())
       i = i + 1
 
   print_en_columnas(lista_habilidad_final,10,ancho=30)
@@ -102,67 +101,56 @@ def habitats():
   clean()
   resp_habitats = requests.get(pokemon + "pokemon-habitat/")
   dato_habitats = resp_habitats.json()
-  print("Estas son los tipos de habitats que puedes elegir")
+  print("Estos son los tipos de hábitats que puedes elegir")
   habitat = dato_habitats["results"]
   lista_habitats = []
   for i in range(len(habitat)):
       nombres_habitat = habitat[i]["name"]
-      lista_habitats.append(str(i + 1) + "-" + nombres_habitat)
+      lista_habitats.append(str(i + 1) + ". " + str(nombres_habitat).capitalize())
       i = i + 1
   print_en_columnas(lista_habitats, 3, ancho=20)
 
-  habitat_final = input("\nIngrese el hábitat de pokemons que desea buscar: ")
+  habitat_final = input("\nIngrese la opicion del hábitat de pokemons que desea buscar: ")
   resp_habitats_final= requests.get(pokemon +"pokemon-habitat/"+habitat_final)
   dato_habitats_final = resp_habitats_final.json()
 
   habitats_final = dato_habitats_final["pokemon_species"]
-  print("Estos son los pokemones de la habitat:", habitat_final)
+  print("Estos son los pokemons del hábitat:", habitat_final)
   lista_habitats_final = []
   for i in range(len(habitats_final)):
       nombres_habitats_final = habitats_final[i]['name']
-      lista_habitats_final.append(str(i + 1) + "-" + nombres_habitats_final)
+      lista_habitats_final.append(str(i + 1) + ". " + str(nombres_habitats_final).capitalize())
       i = i + 1
   print_en_columnas(lista_habitats_final, 15, ancho=20)
 
+def selector():
+    menu()
+    opcion = input("\nIngresa una opcion: ")
+    while True:
+      try:
+        opcion = int(opcion)
+        lista_menu = [generacion, forma, habilidades, habitats]
+        if opcion == 5:
+          return "\nGracias por usar la pokeapi" 
+        else:
+          lista_menu[opcion - 1]()
+          opcion2 = input("\nDeseas volver al menu principal? S/N: " ).upper()
+          while True:
+            if opcion2 == "S" or opcion2 == "SI":
+              clean()
+              print("Menu principal:\n")
+              menu()
+              opcion = input("\nIngresa una opcion: ")
+              break
+            elif opcion2 == "N" or opcion2 == "NO":
+              return "\nGracias por usar la libreria virtual"
+            else:
+              opcion2 = input("Debes ingresar S o N: " ).upper()
+      except:
+        opcion = input("Ingresa una opcion válida: ")
 
-menu()
-opcion = int(input("\nIngresa una opcion: "))
-while True:
-  if opcion == 1:
-    generacion()
-    opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
-    if opcion2 == "S" or opcion2 == "SI":
-      menu()
-      opcion = int(input("\nIngresa una opcion: "))
-    else:
-      print("\nGracias por usar la libreria virtual")
-      break
-  if opcion == 2:
-    forma()
-    opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
-    if opcion2 == "S" or opcion2 == "SI":
-      menu()
-      opcion = int(input("\nIngresa una opcion: "))
-    else:
-      print("\nGracias por usar la libreria virtual")
-      break
-  if opcion == 3:
-    habilidades()
-    opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
-    if opcion2 == "S" or opcion2 == "SI":
-      menu()
-      opcion = int(input("\nIngresa una opcion: "))
-    else:
-      print("Gracias por usar la libreria virtual")
-      break
-  if opcion == 4:
-    habitats()
-    opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
-    if opcion2 == "S" or opcion2 == "SI":
-      menu()
-      opcion = int(input("\nIngresa una opcion: "))
-    else:
-      print("\nGracias por usar la pokeapi")
-      break
+clean()
+print("---- BIENVENIDO A LA POKEAPI ----\n")
+selector()
 
 
