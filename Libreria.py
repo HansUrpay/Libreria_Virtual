@@ -163,7 +163,20 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       datos.set_index("TITULO", inplace=True)
       #Imprime solo datos de libros con el número de autores escogido
-      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]]) 
+      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]])
+      
+  # Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
+  def editar_actualizar():
+    abrir = open("libros.csv","r")
+    datos = csv.DictReader(abrir)
+    print(datos)
+    
+    up_dt = []
+    for r in datos:
+      print(r)
+        
+    
+    pass
   
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
@@ -198,7 +211,7 @@ def libreria():
       except:
         opcion = input("Ingresa una opcion válida: ")
       else:
-        lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores]
+        lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores, editar_actualizar]
         system("cls")
         lista_menu[opcion - 1]() 
         opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
