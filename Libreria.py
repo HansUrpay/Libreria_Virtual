@@ -19,7 +19,6 @@
 # Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
 
 #INICIO DE TAREA
-
 import csv 
 from csv import DictWriter
 import pandas as pd
@@ -72,7 +71,6 @@ def libreria():
               break
           except:
             elim = input("\nIngrese id del libro que desea eliminar: ")
-
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
       # Se lee el archivo de libros
@@ -82,17 +80,21 @@ def libreria():
         print("1. Buscar por ISBN")
         print("2. Buscar por título")
         print("3. Volver al menu principal\n") 
-        opcion = input("Ingresar opción: ")    
-        if opcion == "1":
-          # Se imprime columna de ISBN
-          print("LIBROS ORDENADOS POR ISBN\n")
-          print(datos["ISBN"])  
+        opcion = input("Ingresar opción: ") 
+        if (opcion == "1"):
+          # Se los datos del libro que se busca por ISBN
+          print("Ingrese un número ISBN (número de 10 0 13 digitos),\nEjemplo: 9788437638973\n")
+          isbn_num = int(input("Ingrese número: "))
+          datos.set_index("ID", inplace=True)
+          print(datos.loc[datos["ISBN"]==isbn_num,["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
         elif (opcion == "2"):
-          # Se imprime columna de titulos
-          print("LIBROS ORDENADOS POR TITULO\n")
-          print(datos["TITULO"])
-        elif (opcion == "3"):
-          clean()
+          name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+          print(type(name_titulo))
+          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False, na=False)]
+          print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]]
+          # datos.set_index("ID", inplace=True)
+          # print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]]
+        else:
           selector()
         else:
           buscar_isbn_titulo()
@@ -155,7 +157,7 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       datos.set_index("TITULO", inplace=True)
       #Imprime solo datos de libros con el número de autores escogido
-      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL"]]) 
+      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]]) 
   
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar():
