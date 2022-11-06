@@ -30,12 +30,15 @@ def generacion():
   lista_generacion = []
   for i in range(len(especies)):
       nombres = especies[i]["name"]
-      url = (requests.get(api_url_pokemon+nombres)).json()
-      url_imagen = url['sprites']['other']['official-artwork']['front_default']
-      lista_generacion.append(str(i+1)+"-"+nombres + " ,el url de su imagen es: " + url_imagen)
-      i = i + 1
-
-  print_en_columnas(lista_generacion,160,ancho=20)
+      url = (requests.get(api_url_pokemon+nombres))
+      if url.status_code == 200:
+        url_g = url.json()
+        url_imagen = url_g['sprites']['other']['official-artwork']['front_default']
+        lista_generacion.append(str(i+1)+"-"+nombres + " ,el url de su imagen es: " + url_imagen)
+        i = i + 1
+      else:
+        print(str(i+1)+"-"+nombres + ", el url de su imagen no fue encontrada")
+  print_en_columnas(lista_generacion,len(lista_generacion),ancho=20)
 
 def forma():
 
@@ -50,20 +53,28 @@ def forma():
       nombres_formas = formas[i]["name"]
       lista_formas.append(str(i+1)+"-"+nombres_formas)
       i = i + 1
+
   print_en_columnas(lista_formas,4,ancho=20)
 
   forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
   resp_formas_final= requests.get(pokemon +"pokemon-shape/"+forma_final)
   dato_formas_final = resp_formas_final.json()
-
+  api_url_pokemon = 'https://pokeapi.co/api/v2/pokemon/'
   formas_final = dato_formas_final["pokemon_species"]
   print("\nEstos son los pokemones de la forma:",forma_final,"\n")
   lista_formas_final = []
   for i in range(len(formas_final)):
       nombres_formas_final = formas_final[i]["name"]
-      lista_formas_final.append(str(i+1)+"-"+nombres_formas_final)
-      i = i + 1
-  print_en_columnas(lista_formas_final,25,ancho=20)
+      url = (requests.get(api_url_pokemon+nombres_formas_final))
+      if url.status_code == 200:
+        url_j = url.json()
+        url_imagen = url_j['sprites']['other']['official-artwork']['front_default']
+        lista_formas_final.append(str(i+1)+"-"+nombres_formas_final + " ,el url de su imagen es: " + url_imagen)
+      
+        i = i + 1
+      else:
+        print(str(i+1)+"-"+nombres_formas_final + ", el url de su imagen no fue encontrada")
+  print_en_columnas(lista_formas_final,len(lista_formas_final),ancho=20)
 
 def habilidades():
 
