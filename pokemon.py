@@ -6,6 +6,13 @@ system("cls")
 
 pokemon = "https://pokeapi.co/api/v2/"
 
+def grouper(lista, n, fillvalue=""):
+    args = [iter(lista)] * n
+    return zip_longest(*args, fillvalue=fillvalue)
+
+def print_en_columnas(lista, numfilas, ancho=15):
+  for fila in zip(grouper(lista, numfilas)):
+    print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
   print("\nOpción 1: Listar pokemons por generación. Se ingresa alguna generación (1, 2, 3, ..) y se listan todos los pokemon respectivos.\nOpción 2: Listar pokemons por forma. Se ingresa alguna forma (deben sugerir valores) y se listan todos los pokemons respectivos.\nOpción 3: Listar pokemons por habilidad. Se deben sugerir opciones a ingresar para interactuar.\nOpción 4: Listar pokemons por habitat. Se deben sugerir opciones a ingresar para interactuar.\nOpción 5: Listar pokemons por tipo. Se deben sugerir opciones a ingresar para interactuar.")
@@ -21,11 +28,11 @@ def generacion():
   print("\nEstos son los pokemones de la generacion:",generacion,"\n")
   lista_generacion = []
   for i in range(len(especies)):
-      nombres = especies[i]["name"]
-      lista_generacion.append(str(i+1)+"-"+nombres)
-      i = i + 1
-
-  print_en_columnas(lista_generacion,25,ancho=20)
+    nombres = especies[i]["name"]
+    lista_generacion.append(str(i+1)+"  -"+nombres)
+    i = i + 1
+  print(lista_generacion)
+  print_en_columnas(lista_generacion, 25, ancho=20)
 
 
 def forma():
@@ -49,7 +56,7 @@ def forma():
   dato_formas_final = resp_formas_final.json()
 
   formas_final = dato_formas_final["pokemon_species"]
-  print("\nEstos son los pokemones de la forma:",forma_final,"\n")
+  print("\nEstos son los pokemones de la forma:",forma_final)
   lista_formas_final = []
   for i in range(len(formas_final)):
       nombres_formas_final = formas_final[i]["name"]
@@ -115,23 +122,16 @@ def habitats():
       i = i + 1
   print_en_columnas(lista_habitats_final, 15, ancho=20)
 
-def grouper(lista, n, fillvalue=""):
-    args = [iter(lista)] * n
-    return zip_longest(args, fillvalue=fillvalue)
-
-def print_en_columnas(lista, numfilas, ancho=15):
-  for fila in zip(grouper(lista, numfilas)):
-    print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 menu()
-opcion = int(input("Ingresa una opcion: "))
+opcion = int(input("\nIngresa una opcion: "))
 while True:
   if opcion == 1:
     generacion()
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
       print("Gracias por usar la libreria virtual")
       break
@@ -140,7 +140,7 @@ while True:
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
       print("Gracias por usar la libreria virtual")
       break
@@ -149,7 +149,7 @@ while True:
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
       print("Gracias por usar la libreria virtual")
       break
@@ -158,7 +158,7 @@ while True:
     opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
     if opcion2 == "S" or opcion2 == "SI":
       menu()
-      opcion = int(input("Ingresa una opcion: "))
+      opcion = int(input("\nIngresa una opcion: "))
     else:
       print("Gracias por usar la libreria virtual")
       break
