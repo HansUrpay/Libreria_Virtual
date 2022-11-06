@@ -59,12 +59,9 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       print(datos.iloc[:,[0,1,2,3,4,5]])
       elim = int(input("\nIngrese id del libro que desea eliminar: ")) 
-    
       while elim not in datos.index:          
         print("Ingrese un ID que se encuentre en la lista\n")
         elim = int(input("\nIngrese id del libro que desea eliminar: "))
-    
-      
       datos.drop(inplace=True, index = (elim-1))
       print(datos.iloc[:,[0,1,2,3,4,5]])   
       
