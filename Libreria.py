@@ -62,7 +62,8 @@ def libreria():
     
       while elim not in datos.index:          
         print("Ingrese un ID que se encuentre en la lista\n")
-        elim = int(input("\nIngrese id del libro que desea eliminar: ")) 
+        elim = int(input("\nIngrese id del libro que desea eliminar: "))
+    
       
       datos.drop(inplace=True, index = (elim-1))
       print(datos.iloc[:,[0,1,2,3,4,5]])   
@@ -78,13 +79,17 @@ def libreria():
         print("3. Salir\n")  
         opcion = input("Ingresar opción: ")    
         if (opcion == "1"):
-          # Se imprime columna de ISBN
-          print("LIBROS ORDENADOS POR ISBN\n")
-          print(datos["ISBN"])  
+          # Se los datos del libro que se busca por ISBN
+          print("Ingrese un número ISBN (número de 10 0 13 digitos),\nEjemplo: 9788437638973\n")
+          isbn_num = int(input("Ingrese número: "))
+          datos.set_index("ID", inplace=True)
+          print(datos.loc[datos["ISBN"]==isbn_num,["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+        
         elif (opcion == "2"):
           # Se imprime columna de titulos
-          print("LIBROS ORDENADOS POR TITULO\n")
-          print(datos["TITULO"])
+          name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+          datos.set_index("ID", inplace=True)
+          print(datos.loc[datos["TITULO"]==str(name_titulo),["AUTORES","ISBN","GENERO","EDITORIAL"]])
         else:
           selector()
 
