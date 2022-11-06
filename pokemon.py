@@ -22,17 +22,20 @@ def generacion():
 
   generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
-  dato_generacion = resp_generacion.json()
 
+  dato_generacion = resp_generacion.json()
+  api_url_pokemon = 'https://pokeapi.co/api/v2/pokemon/'
   especies = dato_generacion["pokemon_species"]
   print("\nEstos son los pokemones de la generacion:",generacion,"\n")
   lista_generacion = []
   for i in range(len(especies)):
       nombres = especies[i]["name"]
-      lista_generacion.append(str(i+1)+"-"+nombres)
+      url = (requests.get(api_url_pokemon+nombres)).json()
+      url_imagen = url['sprites']['other']['official-artwork']['front_default']
+      lista_generacion.append(str(i+1)+"-"+nombres + " ,el url de su imagen es: " + url_imagen)
       i = i + 1
-      #print(len(especies))
-  print_en_columnas(lista_generacion,25,ancho=20)
+
+  print_en_columnas(lista_generacion,160,ancho=20)
 
 def forma():
 
