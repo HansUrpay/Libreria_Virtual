@@ -1,11 +1,15 @@
 import requests
 import json
-from os import system
-from itertools import zip_longest
-system("cls")
+import os
 from itertools import zip_longest
 
-pokemon = "https://pokeapi.co/api/v2/"
+pokemon = "https://pokeapi.co/api/v2/"  
+
+def clean(): #Definimos la función para limpiar pantalla segun el SO
+  if os.name == "posix":
+    os.system("clear")
+  elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+    os.system("cls")
 
 def grouper(lista, n, fillvalue=""):
     args = [iter(lista)] * n
@@ -16,11 +20,12 @@ def print_en_columnas(lista, numfilas, ancho=15):
     print("".join(f"{nombre:{ancho}s}" for nombre in fila))
 
 def menu():
-  print("\nOpción 1: Listar pokemons por generación. Se ingresa alguna generación (1, 2, 3, ..) y se listan todos los pokemon respectivos.\nOpción 2: Listar pokemons por forma. Se ingresa alguna forma (deben sugerir valores) y se listan todos los pokemons respectivos.\nOpción 3: Listar pokemons por habilidad. Se deben sugerir opciones a ingresar para interactuar.\nOpción 4: Listar pokemons por habitat. Se deben sugerir opciones a ingresar para interactuar.\nOpción 5: Listar pokemons por tipo. Se deben sugerir opciones a ingresar para interactuar.")
+  clean()
+  print("1. Mostrar pokemons por generación \n2. Mostrar pokemons por forma. \n3. Mostrar pokemons por habilidad. \n4. Mostrar pokemons por habitat. \n5. Mostrar pokemons por tipo.")
 
 def generacion():
-
-  generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
+  clean()
+  generacion = input("\nIngrese la generacion del 1 al 8: ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
   dato_generacion = resp_generacion.json()
 
@@ -35,11 +40,11 @@ def generacion():
   print_en_columnas(lista_generacion,25,ancho=20)
 
 def forma():
-
+  clean()
   resp_formas = requests.get(pokemon+"pokemon-shape/")
 
   dato_formas = resp_formas.json()
-  print("\nEstas son los tipos de formas que puedes elegir: \n")
+  print("\nEstos son los tipos de formas que puedes elegir: \n")
 
   formas = dato_formas["results"]
   lista_formas = []
@@ -49,7 +54,7 @@ def forma():
       i = i + 1
   print_en_columnas(lista_formas,4,ancho=20)
 
-  forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
+  forma_final = input("\nIngresa la forma de pokemons que desea buscar: ")
   resp_formas_final= requests.get(pokemon +"pokemon-shape/"+forma_final)
   dato_formas_final = resp_formas_final.json()
 
@@ -63,7 +68,7 @@ def forma():
   print_en_columnas(lista_formas_final,25,ancho=20)
 
 def habilidades():
-
+  clean()
   resp_habilidades = requests.get(pokemon+"ability/")
 
   dato_habilidades = resp_habilidades.json()
@@ -94,6 +99,7 @@ def habilidades():
 
 # opcion 4 habitats de pokemons
 def habitats():
+  clean()
   resp_habitats = requests.get(pokemon + "pokemon-habitat/")
   dato_habitats = resp_habitats.json()
   print("Estas son los tipos de habitats que puedes elegir")
@@ -105,7 +111,7 @@ def habitats():
       i = i + 1
   print_en_columnas(lista_habitats, 3, ancho=20)
 
-  habitat_final = input("\nCual es el habitat que desea buscar para los pokemons: ")
+  habitat_final = input("\nIngrese el hábitat de pokemons que desea buscar: ")
   resp_habitats_final= requests.get(pokemon +"pokemon-habitat/"+habitat_final)
   dato_habitats_final = resp_habitats_final.json()
 
@@ -156,7 +162,7 @@ while True:
       menu()
       opcion = int(input("\nIngresa una opcion: "))
     else:
-      print("\nGracias por usar la libreria virtual")
+      print("\nGracias por usar la pokeapi")
       break
 
 
