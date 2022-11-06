@@ -23,18 +23,21 @@
 import csv 
 from csv import DictWriter
 import pandas as pd
-from os import system
-system("cls")         
+import os 
+
+# #Definimos la función para limpiar pantalla segun el SO
+def clean(): #Definimos la función para limpiar pantalla segun el SO
+  if os.name == "posix":
+    os.system ("clear")
+  elif os.name == "ce" or os.name == "nt" or os.name == "dos":
+    os.system ("cls")         
     
 def libreria():
+  clean()
   def menu():
-        return("\nOpción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
+        return("Opción 1: Leer archivo de libros.\nOpción 2: Mostrar libros.\nOpción 3: Agregar libro.\nOpción 4: Eliminar libro.\nOpción 5: Buscar libro por ISBN o por título.\nOpción 6: Ordenar libros por título.\nOpción 7: Buscar libros por autor, editorial o género. \nOpción 8: Buscar libros por número de autores. \nOpción 9: Editar o actualizar datos de un libro.\nOpción 10: Guardar libros en archivo\n")
   
-  # def clean(): #Definimos la función para limpiar pantalla segun el SO
-  #   if os.name == "posix":
-  #     os.system ("clear")
-  #   elif os.name == "ce" or os.name == "nt" or os.name == "dos":
-  #     os.system ("cls")
+  
   
   # Agregar las funciones para cada opcion
 
@@ -53,8 +56,8 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       # Se imprime todos los libros del archivo
       print(datos.iloc[:,[0,1,2,3,4,5]])
-      
-  # Opción 4: Eliminar libro. 
+
+  # Opción 4: Eliminar libro.    
   def eliminar():
         print("Libros disponibles:\n")
         datos = pd.read_csv("libros.csv")
@@ -63,8 +66,7 @@ def libreria():
         while True:
           try:
             elim = int(elim)
-            if elim not in datos.index:          
-              print("\nIngrese id del libro que desea eliminar: ")
+            if elim not in datos.index:
               elim = input("\nIngrese id del libro que desea eliminar: ")
             else:
               datos.drop(inplace=True, index = (elim-1))
@@ -92,7 +94,7 @@ def libreria():
           print("LIBROS ORDENADOS POR TITULO\n")
           print(datos["TITULO"])
         elif (opcion == "3"):
-          system("cls")
+          clean()
           selector()
         else:
           buscar_isbn_titulo()
@@ -120,28 +122,28 @@ def libreria():
           with open("libros.csv", "r",encoding="UTF-8") as file:
             libros = csv.reader(file)
             if opcion == "1":
-              system("cls")
+              clean()
               busqueda = input("Ingresar el autor a buscar: ")
               print("Busquedas encontradas: \n")
               for fila in libros:
                 if busqueda.upper() in fila[5] or busqueda.lower() in fila[5] or busqueda.capitalize() in fila[5]:
                   print(" ".join(fila))
             elif opcion == "2":
-              system("cls")
+              clean()
               busqueda = input("Ingresar la editorial a buscar: ")
               print("Busquedas encontradas: \n")
               for fila in libros:
                 if busqueda.upper() in fila[4] or busqueda.lower() in fila[4] or busqueda.capitalize() in fila[4]:
                   print(" ".join(fila))
             elif opcion == "3":
-              system("cls")
+              clean()
               busqueda = input("Ingresar el genero a buscar: ")
               print("Busquedas encontradas: \n")
               for fila in libros:
                 if busqueda.upper() in fila[2] or busqueda.lower() in fila[2] or busqueda.capitalize() in fila[2]:
                   print(" ".join(fila))
             elif opcion == "4":
-              system("cls")
+              clean()
               selector()
             else:
               buscar_autor_editorial_genero()
@@ -191,12 +193,12 @@ def libreria():
         opcion = input("Ingresa una opcion válida: ")
       else:
         lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores]
-        system("cls")
+        clean()
         lista_menu[opcion - 1]() 
         opcion2 = input("\nDeseas volver al menu? S/N: " ).upper()
         while True:
             if opcion2 == "S" or opcion2 == "SI":
-              system("cls")
+              clean()
               print(menu())
               opcion = input("Ingresa una opcion: ")
               break
@@ -205,7 +207,7 @@ def libreria():
             else:
               opcion2 = input("Debes ingresar S o N: " ).upper()
               
-  print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----")
+  print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
   print(selector())      
     
 print(libreria())
