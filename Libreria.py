@@ -48,16 +48,34 @@ def libreria():
       print(datos[["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES"]].iloc[0:3])
 
   # opción 2: Listar libros.
-  def listar():
+  def listar_libros():
       clean()
       # Se lee el archivo de libros
       print("Mostrando libros ...\n")
       datos = pd.read_csv("libros.csv")
       # Se imprime todos los libros del archivo
       print(datos.iloc[:,[0,1,2,3,4,5]])
-      
+
+  # Opcion 3: Agregar libro.
+  def agregar_libro():
+    clean()
+    class Libro():
+        libros = ["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES","NUM_AUTORES"]
+        def __init__(self):
+          self.id = input("Ingrese el ID del libro: ")
+          self.titulo = input("Ingrese el titulo del libro: ")
+          self.genero = input("Ingrese el genero del libro: ")
+          self.isbn = input("Ingrese el ISBN: ")
+          self.editorial = input("Ingrese la editorial: ")
+          self.autores = input("Ingrese autores: ")
+          self.num_autores = input("Ingrese el número de autores: ")
+    print("Agregando libro ...\n")
+    libro1 = Libro()
+    lib_datos = {"ID":libro1.id, "TITULO":libro1.titulo, "GENERO":libro1.genero, "ISBN":libro1.isbn, "EDITORIAL":libro1.editorial, "AUTORES":libro1.autores, "NUM_AUTORES":libro1.num_autores}
+    return lib_datos
+
   # Opción 4: Eliminar libro.
-  def eliminar():
+  def eliminar_libro():
     clean()
     print("Libros disponibles:\n")
     datos = pd.read_csv("libros.csv")
@@ -190,7 +208,7 @@ def libreria():
       print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]]) 
   
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
-  def guardar():
+  def guardar_libro():
       clean()
       class Libro():
           libros = ["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES","NUM_AUTORES"]
@@ -209,7 +227,6 @@ def libreria():
           escribir = DictWriter(nueva_linea, fieldnames=libro1.libros)
           escribir.writerow(lib_datos)
           nueva_linea.close()
-          break
             
   # Menú de opciones para el usuario  
   def selector():
@@ -218,8 +235,8 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [leer_archivo, listar, eliminar, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores, guardar]
-        if opcion == 9:
+        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores, guardar_libro]
+        if opcion == 10:
           return "\nGracias por usar la libreria virtual" 
         else:
           lista_menu[opcion - 1]()
@@ -236,8 +253,7 @@ def libreria():
               opcion2 = input("Debes ingresar S o N: " ).upper()
       except:
         opcion = input("Ingresa una opcion válida: ")
-        
-              
+                      
   print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
   print(selector())            
 
