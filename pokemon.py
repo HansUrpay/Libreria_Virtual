@@ -18,26 +18,52 @@ def print_en_columnas(lista, numfilas, ancho=15):
 def menu():
   print("\nOpción 1: Listar pokemons por generación. Se ingresa alguna generación (1, 2, 3, ..) y se listan todos los pokemon respectivos.\nOpción 2: Listar pokemons por forma. Se ingresa alguna forma (deben sugerir valores) y se listan todos los pokemons respectivos.\nOpción 3: Listar pokemons por habilidad. Se deben sugerir opciones a ingresar para interactuar.\nOpción 4: Listar pokemons por habitat. Se deben sugerir opciones a ingresar para interactuar.\nOpción 5: Listar pokemons por tipo. Se deben sugerir opciones a ingresar para interactuar.")
 
+def listar_nombre(lista,nombre,i):
+  url = 'https://pokeapi.co/api/v2/pokemon/'
+  request_url = (requests.get(url + nombre))
+
+  if request_url.status_code == 200:
+    url_req = request_url.json()
+    lista_habilidades = []
+    habilidad_pokemon = url_req["abilities"]
+    url_imagen = url_req['sprites']['other']['official-artwork']['front_default']
+    #for i in range(len(habilidad_pokemon)):
+
+    lista.append("************ "+str(i + 1) + "-" + nombre+" ************")
+    lista.append("El url de su imagen es: " + str(url_imagen))
+    lista.append("Tiene las siguientes habilidades: ") #+ str(lista_habilidades[ability]))
+
+    for ability in range(len(habilidad_pokemon)):
+      nombres_habilidad = habilidad_pokemon[ability]["ability"]["name"]
+      lista_habilidades.append(nombres_habilidad)
+
+      #lista.append(str(i + 1) + "-" + nombre + ", el url de su imagen es: " +
+                   #str(url_imagen) + " , sus habilidades son: ")
+
+      lista.append(str(lista_habilidades[ability]))
+      ability = ability +1
+
+    i = i + 1
+
+  else:
+    print(str(i + 1) + "-" + nombre + " ,el url de su imagen no fue encontrada")
+
+
+
 def generacion():
 
   generacion = input("\ningrese que generacion busca (pista son solo 8 generaciones): ")
   resp_generacion = requests.get(pokemon+"generation/"+generacion)
 
   dato_generacion = resp_generacion.json()
-  api_url_pokemon = 'https://pokeapi.co/api/v2/pokemon/'
   especies = dato_generacion["pokemon_species"]
   print("\nEstos son los pokemones de la generacion:",generacion,"\n")
   lista_generacion = []
   for i in range(len(especies)):
       nombres = especies[i]["name"]
-      url = (requests.get(api_url_pokemon+nombres))
-      if url.status_code == 200:
-        url_g = url.json()
-        url_imagen = url_g['sprites']['other']['official-artwork']['front_default']
-        lista_generacion.append(str(i+1)+"-"+nombres + " ,el url de su imagen es: " + url_imagen)
-        i = i + 1
-      else:
-        print(str(i+1)+"-"+nombres + ", el url de su imagen no fue encontrada")
+      listar_nombre(lista_generacion,nombres,i)
+
+
   print_en_columnas(lista_generacion,len(lista_generacion),ancho=20)
 
 def forma():
@@ -59,21 +85,14 @@ def forma():
   forma_final = input("\nCual es la forma que desea buscar para los pokemons: ")
   resp_formas_final= requests.get(pokemon +"pokemon-shape/"+forma_final)
   dato_formas_final = resp_formas_final.json()
-  api_url_pokemon = 'https://pokeapi.co/api/v2/pokemon/'
   formas_final = dato_formas_final["pokemon_species"]
+
   print("\nEstos son los pokemones de la forma:",forma_final,"\n")
   lista_formas_final = []
   for i in range(len(formas_final)):
       nombres_formas_final = formas_final[i]["name"]
-      url = (requests.get(api_url_pokemon+nombres_formas_final))
-      if url.status_code == 200:
-        url_j = url.json()
-        url_imagen = url_j['sprites']['other']['official-artwork']['front_default']
-        lista_formas_final.append(str(i+1)+"-"+nombres_formas_final + " ,el url de su imagen es: " + url_imagen)
-      
-        i = i + 1
-      else:
-        print(str(i+1)+"-"+nombres_formas_final + ", el url de su imagen no fue encontrada")
+      listar_nombre(lista_formas_final,nombres_formas_final,i)
+
   print_en_columnas(lista_formas_final,len(lista_formas_final),ancho=20)
 
 def habilidades():
@@ -81,29 +100,28 @@ def habilidades():
   resp_habilidades = requests.get(pokemon+"ability/")
 
   dato_habilidades = resp_habilidades.json()
-  print("\nEstas son los tipos de habilidades que puedes elegir\n")
-
+  print("\nEstas son los tipos de habilidades que puedes elegir:\n")
   habilidad = dato_habilidades["results"]
   lista_habilidad = []
   for i in range(len(habilidad)):
       nombres_habilidad = habilidad[i]["name"]
       lista_habilidad.append(str(i+1)+"-"+nombres_habilidad)
       i = i + 1
+
   print_en_columnas(lista_habilidad,4,ancho=20)
 
   habilidad_final = input("\nCual es la habilidad que desea buscar para los pokemons: ")
   resp_habilidad_final= requests.get(pokemon +"ability/"+habilidad_final)
   dato_habilidades_final = resp_habilidad_final.json()
-
   habilidades_final = dato_habilidades_final["pokemon"]
+
   print("\nEstos son los pokemones de la habilidad:",habilidad_final+"\n")
   lista_habilidad_final = []
   for i in range(len(habilidades_final)):
       nombres_habilidades_final = habilidades_final[i]["pokemon"]['name']
-      lista_habilidad_final.append(str(i+1)+"-"+nombres_habilidades_final)
-      i = i + 1
+      listar_nombre(lista_habilidad_final,nombres_habilidades_final,i)
 
-  print_en_columnas(lista_habilidad_final,10,ancho=30)
+  print_en_columnas(lista_habilidad_final,len(lista_habilidad_final),ancho=30)
 
 
 # opcion 4 habitats de pokemons
