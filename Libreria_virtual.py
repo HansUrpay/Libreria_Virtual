@@ -34,7 +34,7 @@ def libreria():
   clean()
   # Descripcion de opciones para el usuario
   def menu():
-        return( "1. Leer archivo de libros.\n2. Mostrar libros.\n3. Agregar libro.\n4. Eliminar libro.\n5. Buscar libro por ISBN o por título.\n6. Ordenar libros por título.\n7. Buscar libro por autor, editorial o género. \n8. Buscar libro por número de autores. \n9. Editar o actualizar datos de un libro.\n10. Guardar libros en archivo.\n11. Salir\n")
+        return("Tienes las siguientes opciones:\n\n1. Leer archivo de libros.\n2. Mostrar libros.\n3. Agregar libro.\n4. Eliminar libro.\n5. Buscar libro por ISBN o por título.\n6. Ordenar libros por título.\n7. Buscar libro por autor, editorial o género. \n8. Buscar libro por número de autores. \n9. Editar o actualizar datos de un libro.\n10. Guardar libros en archivo.\n11. Salir\n")
 
   # Agregar las funciones para cada opcion
 
@@ -86,7 +86,7 @@ def libreria():
       try:
         elim = int(elim)
         if elim not in datos.index or elim == 0:
-          elim = input("Ingrese el id del libro que desea eliminar: ")
+          elim = int(input("Ingrese el id del libro que desea eliminar: "))
         else:
           clean()
           datos.drop(inplace=True, index = (elim-1))
@@ -100,16 +100,16 @@ def libreria():
       clean()
       # Se lee el archivo de libros
       datos = pd.read_csv("libros.csv")
+      print("\nElija una opción del 1 al 3:\n")
+      print("1. Buscar por ISBN")
+      print("2. Buscar por Título")
+      print("3. Volver al menu principal\n")  
+      opcion = input("Ingresar opción: ")    
       while True:
-        print("\nElija una opción del 1 al 3:\n")
-        print("1. Buscar por ISBN")
-        print("2. Buscar por Título")
-        print("3. Volver al menu principal\n")  
-        opcion = input("Ingresar opción: ")    
         # Se realiza la busqueda por datos ISBN
         if (opcion == "1"):
           clean()
-          print("Ingrese un número ISBN (número de 10 0 13 digitos),\nEjemplo: 9788437638973\n")
+          print("El ISBN es un número de 10 0 13 digitos,\nEjemplo: 9788437638973\n")
           # Se ingresa el número ISBN
           isbn_num = input("Ingrese número: ")
           # Se buscan las coincidencias
@@ -182,14 +182,14 @@ def libreria():
                   coincidencia = " ".join(fila)
                   if coincidencia != "ID TITULO GENERO ISBN EDITORIAL AUTORES NUM_AUTORES":
                     print(coincidencia)
-              if count == 0:
-                print(count)
+              if count == 0 or (coincidencia == "ID TITULO GENERO ISBN EDITORIAL AUTORES NUM_AUTORES" and count == 1):
+                print(0)
               break
         except:
           buscar_autor_editorial_genero()
           
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
-  def buscar_autores():
+  def buscar_num_autores():
       clean()
       print("BUSCAR LIBRO POR EL NÚMERO DE AUTORES\n")
       #Ingresamos el número de autores a buscar
@@ -198,8 +198,73 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       datos.set_index("TITULO", inplace=True)
       #Imprime solo datos de libros con el número de autores escogido
-      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]]) 
-  
+      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]])
+
+  # Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
+  def editar_actualizar():
+      datos = pd.read_csv("libros.csv")
+      clean()
+      print("EDITAR O ACTUALIZAR DATOS\n")
+      #buscador
+      # print("Buscador: \n")
+      print("Como deseas buscar el libro a editar?\n\n1. Buscar por autor, editorial o género.\n2. Buscar por ISBN o título.\n3. Buscar por número de autores.\n4. Volver al menu principal\n")
+      opcion = input("Ingrese una opcion del 1 al 4: ")
+      lista_funciones = [buscar_autor_editorial_genero, buscar_isbn_titulo, buscar_num_autores]
+      while True:
+        try:
+          
+        #   name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+        #   buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
+        #   coincidencias_titulo = buscar_titulo.size
+        #   if coincidencias_titulo == 0:
+        #     print("\nNo se han encontrado coindiciencias\n")
+        #   else:
+        #   # Se muestran las coincidencias      
+        #     print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+          
+        # except:
+        #   name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+        
+        #PARA EDITAR DATOS
+#puedes usar esto para la validación
+# #para contar filas y columnas y hacer la validación
+# filas = len(datos.axes[0])
+# print(filas)
+# columnas = len(datos.axes[1])
+# print(columnas)
+                
+          opcion = int(opcion)
+          if opcion == 4:
+            clean()
+            selector()
+          if opcion not in range(1, 4):
+            opcion = input("Ingrese una opcion del 1 al 4: ")
+          lista_funciones[opcion - 1]()
+          fila = int(input("\nIngrese el id del libro a cambiar: "))
+          print("\nIngrese el número de la opcion que desea editar: \n")
+          i = 0
+          for row in datos:
+              i = i + 1
+              print(f"{i}. {row}")
+          columna = input("8. Volver al menu principal.\n\nIngrese una opcion del 1 al 8: ")
+          clean()
+          while True:
+            try:
+              columna = int(columna)
+              if columna == 8:
+                selector()
+              if columna in range(1, 9):
+                nuevo = str(input("\nIngrese el nuevo valor: "))
+                datos.iloc[fila-1,columna-1] = nuevo
+                datos.to_csv("libros.csv", index=False)
+                print(datos)
+              else:
+                columna = input("Ingrese una opcion del 1 al 7: ")
+            except:
+              columna = input("Ingrese una opcion del 1 al 7: ")
+        except:
+          opcion = input("Ingrese una opcion del 1 al 4: ")
+
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar_libro():
       clean()
@@ -228,8 +293,8 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores, guardar_libro]
-        if opcion == 10:
+        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_num_autores,editar_actualizar, guardar_libro]
+        if opcion == 11:
           return "\nGracias por usar la libreria virtual" 
         else:
           lista_menu[opcion - 1]()
@@ -237,6 +302,7 @@ def libreria():
           while True:
             if opcion2 == "S" or opcion2 == "SI":
               clean()
+              print("Menu principal:\n")
               print(menu())
               opcion = input("Ingresa una opcion: ")
               break
@@ -247,7 +313,7 @@ def libreria():
       except:
         opcion = input("Ingresa una opcion válida: ")
                       
-  print("---- BIENVENIDO A TU LIBRERIA VIRTUAL ----\n")
+  print("---- BIENVENIDO/A A LA LIBRERIA VIRTUAL ----\n")
   print(selector())            
 
 libreria()
