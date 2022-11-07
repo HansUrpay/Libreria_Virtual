@@ -31,7 +31,6 @@ def listar_nombre(lista,nombre,i):
     lista_habilidades = []
     habilidad_pokemon = url_req["abilities"]
     url_imagen = url_req['sprites']['other']['official-artwork']['front_default']
-    #for i in range(len(habilidad_pokemon)):
 
     lista.append("************ "+str(i + 1) + "-" + nombre+" ************")
     lista.append("El url de su imagen es: " + str(url_imagen))
