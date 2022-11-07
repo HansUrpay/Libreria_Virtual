@@ -81,19 +81,19 @@ def libreria():
     datos = pd.read_csv("libros.csv")
     print(datos.iloc[:,[0,1,2,3,4,5]])
     print()
-    elim = input("Ingrese el ID del libro que desea eliminar: ")
+    elim = input("Ingrese el id del libro que desea eliminar: ")
     while True:
       try:
         elim = int(elim)
         if elim not in datos.index or elim == 0:
-          elim = input("Ingrese el ID del libro que desea eliminar: ")
+          elim = int(input("Ingrese el id del libro que desea eliminar: "))
         else:
           clean()
           datos.drop(inplace=True, index = (elim-1))
           print(datos.iloc[:,[0,1,2,3,4,5]])
           break
       except:
-        elim = input("Ingrese el ID del libro que desea eliminar: ")
+        elim = input("Ingrese el id del libro que desea eliminar: ")
             
   #Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
   def buscar_isbn_titulo():
@@ -189,7 +189,7 @@ def libreria():
           buscar_autor_editorial_genero()
           
   #Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
-  def buscar_autores():
+  def buscar_num_autores():
       clean()
       print("BUSCAR LIBRO POR EL NÚMERO DE AUTORES\n")
       #Ingresamos el número de autores a buscar
@@ -199,11 +199,9 @@ def libreria():
       datos.set_index("TITULO", inplace=True)
       #Imprime solo datos de libros con el número de autores escogido
       print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]])
+
   # Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
   def editar_actualizar():
-    
-      
-      
       datos = pd.read_csv("libros.csv")
 
       print("EDITAR O ACTUALIZAR DATOS\n")
@@ -276,7 +274,7 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores,editar_actualizar, guardar_libro]
+        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_num_autores,editar_actualizar, guardar_libro]
         if opcion == 11:
           return "\nGracias por usar la libreria virtual" 
         else:
