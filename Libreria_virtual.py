@@ -96,9 +96,11 @@ def libreria():
           coincidencias_isbn = buscar_isbn.size
           if coincidencias_isbn == 0:
             print("\nNo se han encontrado coindiciencias\n")
+            break
           else: 
           # Se muestran las coincidencias
             print(buscar_isbn[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+            break
         # Se realiza la busqueda por titulo
         elif (opcion == "2"):
           clean()
@@ -109,9 +111,11 @@ def libreria():
           coincidencias_titulo = buscar_titulo.size
           if coincidencias_titulo == 0:
             print("\nNo se han encontrado coindiciencias\n")
+            break
           else:
           # Se muestran las coincidencias      
             print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+            break
         elif (opcion == "3"):
           clean()
           selector()
