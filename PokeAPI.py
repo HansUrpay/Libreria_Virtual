@@ -39,7 +39,7 @@ def listar_nombre(lista,nombre,i):
     for ability in range(len(habilidad_pokemon)):
       nombres_habilidad = habilidad_pokemon[ability]["ability"]["name"]
       lista_habilidades.append(nombres_habilidad)
-      
+
       lista.append(str(lista_habilidades[ability]))
       ability = ability +1
 
@@ -212,6 +212,6 @@ def selector():
 
 clean()
 print("---- BIENVENIDO/A A LA POKEAPI ----\n")
-selector()
+print(selector())
 
 
