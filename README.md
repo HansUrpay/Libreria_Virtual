@@ -2,6 +2,7 @@
 En este repositorio contiene 2 proyectos.
 
 1.- Librería virtual.
+
 Este proyecto simula el funcionamiento de una librería virtual con un menu de opciones 
 interactuables que te permite realizar lo siguiente:
 - Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.
@@ -16,6 +17,7 @@ interactuables que te permite realizar lo siguiente:
 - Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
 
 2.- Pokeapi.
+
 Este proyecto simula el funcionamiento de una Pokedex y te brinda informacion sobre pokemons en 
 el menu interactuable con las siguientes opciones:
 - Opción 1: Listar pokemons por generación. Se ingresa alguna generación (1, 2, 3, ..) y se listan todos los pokemon respectivos.
