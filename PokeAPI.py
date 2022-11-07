@@ -160,7 +160,7 @@ def tipos():
   resp_tipos = requests.get(pokemon+"type/")
 
   dato_tipos = resp_tipos.json()
-  print("\nEstas son los tipos de pokemons que puedes elegir\n")
+  print("\nEstas son los tipos de pokemons que puedes elegir:\n")
 
   tipos = dato_tipos["results"]
   lista_tipos = []
@@ -168,22 +168,21 @@ def tipos():
       nombres_tipos = tipos[i]["name"]
       lista_tipos.append(str(i+1)+"-"+nombres_tipos)
       i = i + 1
-      
-  print_en_columnas(lista_tipos,4,ancho=20)
+
+  print_en_columnas(lista_tipos,5,ancho=20)
 
   tipo_final = input("\nCual es el tipo de pokemon que desea buscar: ")
   resp_tipo_final= requests.get(pokemon +"type/"+tipo_final)
   dato_tipo_final = resp_tipo_final.json()
-
   tipos_final = dato_tipo_final["pokemon"]
+
   print("\nEstos son los pokemones de tipo:",tipo_final+"\n")
   lista_tipos_final = []
   for i in range(len(tipos_final)):
       nombres_tipos_final = tipos_final[i]["pokemon"]['name']
-      lista_tipos_final.append(str(i+1)+"-"+nombres_tipos_final)
-      i = i + 1
+      listar_nombre(lista_tipos_final,nombres_tipos_final,i)
 
-  print_en_columnas(lista_tipos_final,30,ancho=30)
+  print_en_columnas(lista_tipos_final,len(lista_tipos_final),ancho=30)
 
 def selector():
     menu()
