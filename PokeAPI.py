@@ -50,7 +50,7 @@ def listar_nombre(lista,nombre,i):
     i = i + 1
 
   else:
-    print(str(i + 1) + "-" + nombre + " ,el url de su imagen no fue encontrada")
+    print(str(i + 1) + "-" + nombre + ", el url de su imagen no fue encontrada")
 
 def generacion():
   clean()
