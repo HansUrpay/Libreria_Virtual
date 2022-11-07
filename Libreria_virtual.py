@@ -198,8 +198,56 @@ def libreria():
       datos = pd.read_csv("libros.csv")
       datos.set_index("TITULO", inplace=True)
       #Imprime solo datos de libros con el número de autores escogido
-      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]]) 
-  
+      print(datos.loc[datos["NUM_AUTORES"]==cant_autores,["AUTORES","GENERO", "EDITORIAL","ISBN"]])
+  # Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
+  def editar_actualizar():
+    
+      
+      
+      datos = pd.read_csv("libros.csv")
+
+      print("EDITAR O ACTUALIZAR DATOS\n")
+      #buscador
+      print("Buscador: \n")
+      
+      while True:
+        try:
+          
+          name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+          buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
+          coincidencias_titulo = buscar_titulo.size
+          if coincidencias_titulo == 0:
+            print("\nNo se han encontrado coindiciencias\n")
+          else:
+          # Se muestran las coincidencias      
+            print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+          
+        except:
+          name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
+        
+        #PARA EDITAR DATOS
+#puedes usar esto para la validación
+# #para contar filas y columnas y hacer la validación
+# filas = len(datos.axes[0])
+# print(filas)
+# columnas = len(datos.axes[1])
+# print(columnas)
+
+        fila = int(input("\nIngrese el id del libro a cambiar: "))
+        print("\nIngrese el número de la columna que desea cambiar: \n")
+
+        i = 0
+        for row in datos:
+            i = i + 1
+            print(f"{row} = {i}")
+        columna = int(input("\nNúmero de columna: "))
+
+        nuevo = str(input("\nIngrese el nuevo valor: "))
+
+        datos.iloc[fila-1,columna-1] = nuevo
+        datos.to_csv("libros.csv", index=False)
+        print(datos)
+
   # Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
   def guardar_libro():
       clean()
@@ -228,8 +276,8 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores, guardar_libro]
-        if opcion == 10:
+        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_autores,editar_actualizar, guardar_libro]
+        if opcion == 11:
           return "\nGracias por usar la libreria virtual" 
         else:
           lista_menu[opcion - 1]()
