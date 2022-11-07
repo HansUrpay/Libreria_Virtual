@@ -22,6 +22,32 @@ def print_en_columnas(lista, numfilas, ancho=15):
 def menu():
   print("Tienes las siguientes opciones:\n\n1. Mostrar pokemons por generación \n2. Mostrar pokemons por forma. \n3. Mostrar pokemons por habilidad. \n4. Mostrar pokemons por hábitat. \n5. Mostrar pokemons por tipo.\n6. Salir")
 
+def listar_nombre(lista,nombre,i):
+  url = 'https://pokeapi.co/api/v2/pokemon/'
+  request_url = (requests.get(url + nombre))
+
+  if request_url.status_code == 200:
+    url_req = request_url.json()
+    lista_habilidades = []
+    habilidad_pokemon = url_req["abilities"]
+    url_imagen = url_req['sprites']['other']['official-artwork']['front_default']
+
+    lista.append("************ "+str(i + 1) + "-" + nombre+" ************")
+    lista.append("El url de su imagen es: " + str(url_imagen))
+    lista.append("Tiene las siguientes habilidades: ") #+ str(lista_habilidades[ability]))
+
+    for ability in range(len(habilidad_pokemon)):
+      nombres_habilidad = habilidad_pokemon[ability]["ability"]["name"]
+      lista_habilidades.append(nombres_habilidad)
+      
+      lista.append(str(lista_habilidades[ability]))
+      ability = ability +1
+
+    i = i + 1
+
+  else:
+    print(str(i + 1) + "-" + nombre + ", el url de su imagen no fue encontrada")
+
 def generacion():
   clean()
   try:
@@ -100,30 +126,33 @@ def habilidades():
 
 # opcion 4 habitats de pokemons
 def habitats():
-  clean()
+
   resp_habitats = requests.get(pokemon + "pokemon-habitat/")
+
   dato_habitats = resp_habitats.json()
-  print("Estos son los tipos de hábitats que puedes elegir")
+  print("\nEstas son los tipos de habitats que puedes elegir:\n")
+
   habitat = dato_habitats["results"]
   lista_habitats = []
   for i in range(len(habitat)):
       nombres_habitat = habitat[i]["name"]
-      lista_habitats.append(str(i + 1) + ". " + str(nombres_habitat).capitalize())
+      lista_habitats.append(str(i + 1) + "-" + nombres_habitat)
       i = i + 1
+
   print_en_columnas(lista_habitats, 3, ancho=20)
 
-  habitat_final = input("\nIngrese la opicion del hábitat de pokemons que desea buscar: ")
+  habitat_final = input("\nCual es el habitat que desea buscar para los pokemons: ")
   resp_habitats_final= requests.get(pokemon +"pokemon-habitat/"+habitat_final)
   dato_habitats_final = resp_habitats_final.json()
-
   habitats_final = dato_habitats_final["pokemon_species"]
-  print("Estos son los pokemons del hábitat:", habitat_final)
+
+  print("Estos son los pokemones de la habitat:", habitat_final)
   lista_habitats_final = []
   for i in range(len(habitats_final)):
       nombres_habitats_final = habitats_final[i]['name']
-      lista_habitats_final.append(str(i + 1) + ". " + str(nombres_habitats_final).capitalize())
-      i = i + 1
-  print_en_columnas(lista_habitats_final, 15, ancho=20)
+      listar_nombre(lista_habitats_final,nombres_habitats_final,i)
+
+  print_en_columnas(lista_habitats_final, len(lista_habitats_final), ancho=20)
 
 # opcion 5 Tipos de pokemon
 def tipos():
