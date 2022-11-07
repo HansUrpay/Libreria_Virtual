@@ -39,10 +39,7 @@ def listar_nombre(lista,nombre,i):
     for ability in range(len(habilidad_pokemon)):
       nombres_habilidad = habilidad_pokemon[ability]["ability"]["name"]
       lista_habilidades.append(nombres_habilidad)
-
-      #lista.append(str(i + 1) + "-" + nombre + ", el url de su imagen es: " +
-                   #str(url_imagen) + " , sus habilidades son: ")
-
+      
       lista.append(str(lista_habilidades[ability]))
       ability = ability +1
 
@@ -128,30 +125,33 @@ def habilidades():
 
 # opcion 4 habitats de pokemons
 def habitats():
-  clean()
+
   resp_habitats = requests.get(pokemon + "pokemon-habitat/")
+
   dato_habitats = resp_habitats.json()
-  print("Estos son los tipos de hábitats que puedes elegir")
+  print("\nEstas son los tipos de habitats que puedes elegir:\n")
+
   habitat = dato_habitats["results"]
   lista_habitats = []
   for i in range(len(habitat)):
       nombres_habitat = habitat[i]["name"]
-      lista_habitats.append(str(i + 1) + ". " + str(nombres_habitat).capitalize())
+      lista_habitats.append(str(i + 1) + "-" + nombres_habitat)
       i = i + 1
+
   print_en_columnas(lista_habitats, 3, ancho=20)
 
-  habitat_final = input("\nIngrese la opicion del hábitat de pokemons que desea buscar: ")
+  habitat_final = input("\nCual es el habitat que desea buscar para los pokemons: ")
   resp_habitats_final= requests.get(pokemon +"pokemon-habitat/"+habitat_final)
   dato_habitats_final = resp_habitats_final.json()
-
   habitats_final = dato_habitats_final["pokemon_species"]
-  print("Estos son los pokemons del hábitat:", habitat_final)
+
+  print("Estos son los pokemones de la habitat:", habitat_final)
   lista_habitats_final = []
   for i in range(len(habitats_final)):
       nombres_habitats_final = habitats_final[i]['name']
-      lista_habitats_final.append(str(i + 1) + ". " + str(nombres_habitats_final).capitalize())
-      i = i + 1
-  print_en_columnas(lista_habitats_final, 15, ancho=20)
+      listar_nombre(lista_habitats_final,nombres_habitats_final,i)
+
+  print_en_columnas(lista_habitats_final, len(lista_habitats_final), ancho=20)
 
 # opcion 5 Tipos de pokemon
 def tipos():
