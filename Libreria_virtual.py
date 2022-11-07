@@ -211,28 +211,7 @@ def libreria():
       opcion = input("Ingrese una opcion del 1 al 4: ")
       lista_funciones = [buscar_autor_editorial_genero, buscar_isbn_titulo, buscar_num_autores]
       while True:
-        try:
-          
-        #   name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
-        #   buscar_titulo = datos[datos["TITULO"].str.contains(name_titulo, case=False)]
-        #   coincidencias_titulo = buscar_titulo.size
-        #   if coincidencias_titulo == 0:
-        #     print("\nNo se han encontrado coindiciencias\n")
-        #   else:
-        #   # Se muestran las coincidencias      
-        #     print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-          
-        # except:
-        #   name_titulo = input("Ingrese el titulo del libro que desea buscar: ")
-        
-        #PARA EDITAR DATOS
-#puedes usar esto para la validación
-# #para contar filas y columnas y hacer la validación
-# filas = len(datos.axes[0])
-# print(filas)
-# columnas = len(datos.axes[1])
-# print(columnas)
-                
+        try: 
           opcion = int(opcion)
           if opcion == 4:
             clean()
