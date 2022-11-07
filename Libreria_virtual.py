@@ -1,3 +1,24 @@
+# Tarea 1
+# Se tiene la clase Libro con los siguientes atributos: id, título, género, ISBN, editorial y autor(es). Considerar que un libro puede tener varios autores.
+
+# Se solicita escribir un programa en Python que permita registrar libros. Debe utilizar: colecciones (listas, tuplas, etc), funciones y clases de Python.
+
+# Dicho programa debe tener un menu (a interactuar en la línea de comando) para:
+
+# Opción 1: Leer archivo de disco duro (.txt o csv) que cargue 3 libros.
+# Opción 2: Listar libros.
+# Opción 3: Agregar libro.
+# Opción 4: Eliminar libro.
+# Opción 5: Buscar libro por ISBN o por título. Se debe sugerir las opciones y listar el resultado.
+# Opción 6: Ordenar libros por título.
+# Opción 7: Buscar libros por autor, editorial o género. Se deben sugerir las opciones y listar los resultados.
+# Opción 8: Buscar libros por número de autores. Se debe ingresar un número por ejemplo 2 (hace referencia a dos autores) y se deben listar todos los libros que contengan 2 autores.
+# Opción 9: Editar o actualizar datos de un libro (título, género, ISBN, editorial y autores).
+# Opción 10: Guardar libros en archivo de disco duro (.txt o csv).
+# opcion 11: Salir del programa
+# Nota: listar libros involucra: título, género, ISBN, editorial y autor(es)
+
+#INICIO DE TAREA
 import csv
 from csv import DictWriter
 import pandas as pd
@@ -100,6 +121,7 @@ def libreria():
           else: 
           # Se muestran las coincidencias
             print(buscar_isbn[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
+            print(coincidencias_isbn)
             break
         # Se realiza la busqueda por titulo
         elif (opcion == "2"):
@@ -111,16 +133,14 @@ def libreria():
           coincidencias_titulo = buscar_titulo.size
           if coincidencias_titulo == 0:
             print("\nNo se han encontrado coindiciencias\n")
-            break
           else:
           # Se muestran las coincidencias      
             print(buscar_titulo[["TITULO","AUTORES","ISBN","GENERO","EDITORIAL"]])
-            break
         elif (opcion == "3"):
           clean()
           selector()
         else:
-          clean()
+          # clean()
           buscar_isbn_titulo()
 
   # Opción 6: Ordenar libros por título.
@@ -194,7 +214,7 @@ def libreria():
       opcion = input("Ingrese una opcion del 1 al 4: ")
       lista_funciones = [buscar_autor_editorial_genero, buscar_isbn_titulo, buscar_num_autores]
       while True:
-        try: 
+        try:
           opcion = int(opcion)
           if opcion == 4:
             clean()
@@ -233,20 +253,23 @@ def libreria():
       class Libro():
           libros = ["ID","TITULO","GENERO","ISBN","EDITORIAL","AUTORES","NUM_AUTORES"]
           def __init__(self):
-            self.id = input("Ingrese ID: ")
+            self.id = input("Ingrese el ID del libro: ")
             self.titulo = input("Ingresar el titulo del libro: ")
             self.genero = input("Ingrese genero del libro: ")
-            self.isbn = input("Ingrese ISBN: ")
-            self.editorial = input("Ingrese editorial: ")
-            self.autores = input("Ingrese autores: ")
+            self.isbn = input("Ingrese el ISBN del libro: ")
+            self.editorial = input("Ingrese la editorial del libro: ")
+            self.autores = input("Ingrese el(los) autor(es) del libro: ")
             self.num_autores = input("Ingrese el número de autores: ")  
       while True:
+        print("Datos del libro a guardar: \n")
         libro1 = Libro()
         lib_datos = {"ID":libro1.id, "TITULO":libro1.titulo, "GENERO":libro1.genero, "ISBN":libro1.isbn, "EDITORIAL":libro1.editorial, "AUTORES":libro1.autores, "NUM_AUTORES":libro1.num_autores}
         with open ('libros.csv','a',newline='') as nueva_linea:
           escribir = DictWriter(nueva_linea, fieldnames=libro1.libros)
           escribir.writerow(lib_datos)
           nueva_linea.close()
+          print("Guardando libro ...\n")
+        break
             
   # Menú de opciones para el usuario  
   def selector():
@@ -255,7 +278,7 @@ def libreria():
     while True:
       try:
         opcion = int(opcion)
-        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_num_autores,editar_actualizar, guardar_libro]
+        lista_menu = [leer_archivo, listar_libros, agregar_libro, eliminar_libro, buscar_isbn_titulo, orden_por_titulo, buscar_autor_editorial_genero, buscar_num_autores, editar_actualizar, guardar_libro]
         if opcion == 11:
           return "\nGracias por usar la libreria virtual" 
         else:
