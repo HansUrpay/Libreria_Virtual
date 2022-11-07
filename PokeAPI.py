@@ -186,4 +186,3 @@ clean()
 print("---- BIENVENIDO/A A LA POKEAPI ----\n")
 selector()
 
-
