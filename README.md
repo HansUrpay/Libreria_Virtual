@@ -1,5 +1,5 @@
 # Trabajo final de Unidad 1
-En este repositorio contiene 2 proyectos.
+Este repositorio contiene 2 proyectos.
 
 1.- Librería virtual.
 
