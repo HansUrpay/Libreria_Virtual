@@ -204,7 +204,7 @@ def selector():
               opcion = input("\nIngresa una opcion: ")
               break
             elif opcion2 == "N" or opcion2 == "NO":
-              return "\nGracias por usar la libreria virtual"
+              return "\nGracias por usar la pokedex"
             else:
               opcion2 = input("Debes ingresar S o N: " ).upper()
       except:
